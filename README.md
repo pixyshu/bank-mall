@@ -9,3 +9,10 @@
 其次，每个人都在`dev`分支上干活，每个人都有自己的分支，时不时地往`dev`分支上合并就可以了。
 
 <img src="https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220303154315.png" alt="image-20220303154308361" style="zoom:50%;" />
+
+## 项目缩写
+bank-mall-management-platform：银行商场管理平台
+服务端项目缩写：bmmp
+管理平台前端项目缩写：bmmpfre
+客户端前端项目缩写：bmfre
+
