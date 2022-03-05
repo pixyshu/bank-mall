@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.suue.bmmp</groupId>
+  <artifactId>bmmp-library-infrastructure</artifactId>
+  <version>1.0.0</version>
+  <name>bmmp-library-infrastructure</name>
+
+
+  <properties>
+    <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+    <spring-cloud.version>2020.0.1</spring-cloud.version>
+    <spring-boot.version>2.4.2</spring-boot.version>
+    <mysql-connector.version>8.0.28</mysql-connector.version>
+    <pagehelper.version>1.2.10</pagehelper.version>
+    <lombok.version>1.18.22</lombok.version>
+    <druid.version>1.2.8</druid.version>
+    <fastjson.version>1.2.79</fastjson.version>
+    <swagger.version>3.0.0</swagger.version>
+    <hutool-all.version>4.6.3</hutool-all.version>
+    <hibernate-validator.version>6.0.1.Final</hibernate-validator.version>
+  </properties>
+
+  <dependencies>
+    <!-- *********持久层相关依赖 start********* -->
+    <!--Mysql数据库驱动-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql-connector.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!--MyBatis分页插件-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <version>${pagehelper.version}</version>
+    </dependency>
+    <!-- lombox -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+    </dependency>
+    <!--集成druid连接池-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+      <version>${druid.version}</version>
+    </dependency>
+    <!-- *********持久层相关依赖 end********* -->
+
+    <!-- fastjson -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+    </dependency>
+    <!--swagger官方Starter-->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <!-- hutool -->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${hutool-all.version}</version>
+    </dependency>
+    <!-- validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- spring-cloud-alibaba-dependencies-->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>${spring-cloud-alibaba.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- spring-cloud-dependencies -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- spring-boot-dependencies -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

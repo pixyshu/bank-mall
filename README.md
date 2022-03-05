@@ -1,5 +1,45 @@
 # bank-mall
 
+## 项目简介
+
+> bank-mall-management-platform：银行商场管理平台
+
+- 服务端项目缩写：bmmp
+- 管理平台前端项目缩写：bmmpfre
+- 客户端前端项目缩写：bmfre
+
+<br>
+
+
+
+## 知识共享
+
+### 工作协作平台
+
+- [Jira](https://shuisheng.atlassian.net/jira/software/projects/SCRUM/boards/2/roadmap?shared=&atlOrigin=eyJpIjoiNjdiMjA4NWZiMzgxNGIxMzljMDYxNGY0Y2JmNjQ3YmEiLCJwIjoiaiJ9)
+
+
+![image-20220305153616775](https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220305153618.png)
+
+
+
+### 参考项目
+
+后台管理端参考项目：[mall-admin-web 商场管理平台](https://github.com/macrozheng/mall-admin-web)
+
+秒杀客户端参考项目：[icyfenixBookstore 书店在线平台](https://bookstore.icyfenix.cn/#/)
+
+京东秒杀参考：[京东秒杀](https://miaosha.jd.com/)
+
+<br>
+
+### 技术文档
+
+1. [mall学习教程](http://www.macrozheng.com/#/?id=mall学习教程)：一个涵盖了各种技术栈的实现的文档
+2. [EasyCode的自定义配置和使用](https://www.cnblogs.com/shubs/articles/15968119.html)：通过对EasyCode的模版配置实现生成符合我们项目需求的业务代码自动生成脚手架
+
+<br>
+
 ## 分支策略
 
 在实际开发中，我们应该按照几个基本原则进行分支管理：
@@ -10,12 +50,11 @@
 
 <img src="https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220303154315.png" alt="image-20220303154308361" style="zoom:50%;" />
 
-## 项目缩写
-> bank-mall-management-platform：银行商场管理平台
 
 
+> ⚠️注意：我们都在dev分支上工作，拉取dev分支上的代码，将本地的工作都提交到dev分支上。
+>
+> 
 
-- 服务端项目缩写：bmmp
-- 管理平台前端项目缩写：bmmpfre
-- 客户端前端项目缩写：bmfre
+
 

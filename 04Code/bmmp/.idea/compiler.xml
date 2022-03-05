@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="bmmp-platform-gateway" />
+        <module name="bmmp-library-infrastructure" />
+        <module name="bmmp-domain-example" />
+        <module name="bmmp-domain-administrator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bmmp-domain-authority" target="1.5" />
+      <module name="bmmp-domain-order" target="1.7" />
+      <module name="bmmp-domain-product" target="1.7" />
+      <module name="bmmp-domain-security" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bmmp-platform-gateway" options="" />
+    </option>
+  </component>
+</project>
