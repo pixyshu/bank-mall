@@ -25,9 +25,9 @@
 
 ### 参考项目
 
-后台管理端参考项目：[mall-admin-web 商场管理平台](https://github.com/macrozheng/mall-admin-web)
+后台管理端参考项目：[mall-admin-web 商场管理平台](https://github.com/macrozheng/mall-admin-web)（账户：`admin`，密码：`macro123`）
 
-秒杀客户端参考项目：[icyfenixBookstore 书店在线平台](https://bookstore.icyfenix.cn/#/)
+秒杀客户端参考项目：[icyfenixBookstore 书店在线平台](https://bookstore.icyfenix.cn/#/)（账户密码任意即可）
 
 京东秒杀参考：[京东秒杀](https://miaosha.jd.com/)
 
