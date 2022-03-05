@@ -36,7 +36,7 @@
 ### 技术文档
 
 1. [mall学习教程](http://www.macrozheng.com/#/?id=mall学习教程)：一个涵盖了各种技术栈的实现的文档
-2. [EasyCode的自定义配置和使用](https://www.cnblogs.com/shubs/articles/15968119.html)：通过对EasyCode的模版配置实现生成符合我们项目需求的业务代码自动生成脚手架
+2. [EasyCode的自定义配置和使用](https://www.cnblogs.com/shuds/articles/15968119.html)：通过对EasyCode的模版配置实现生成符合我们项目需求的业务代码自动生成脚手架
 
 <br>
 
