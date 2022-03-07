@@ -2,6 +2,27 @@
 
 ## 项目简介
 
+### 仓库文件夹说明
+
+- 01Plan
+
+- 02Requirement：产品需求分析文档存放在这里
+
+- 03Design
+  - **01mind**：功能架构设计的导图放在这里
+  - **02UI**：功能设计的原型图文件放在这里
+  - **03pdm**：数据库设计的物理模型文件放在这里
+  - **04sql**：数据库的表单生成脚步放在这里
+
+- 04Code
+  - **bmmp**：服务端的后端项目文件
+  - **bmmpfre**：管理端的前端项目文件
+  - **bmfre**：客户端的前端项目文件
+
+
+
+### 项目缩写说明
+
 > bank-mall-management-platform：银行商场管理平台
 
 - 服务端项目缩写：bmmp
@@ -9,8 +30,6 @@
 - 客户端前端项目缩写：bmfre
 
 <br>
-
-
 
 ## 知识共享
 
@@ -35,8 +54,11 @@
 
 ### 技术文档
 
-1. [mall学习教程](http://www.macrozheng.com/#/?id=mall学习教程)：一个涵盖了各种技术栈的实现的文档
-2. [EasyCode的自定义配置和使用](https://www.cnblogs.com/shuds/articles/15968119.html)：通过对EasyCode的模版配置实现生成符合我们项目需求的业务代码自动生成脚手架
+- [git教程——廖雪峰](https://www.liaoxuefeng.com/wiki/896043488029600)：有文字、有图片还有视频的git在线教程
+
+- [mall学习教程](http://www.macrozheng.com/#/?id=mall学习教程)：一个涵盖了各种技术栈的实现的文档
+
+- [EasyCode的自定义配置和使用](https://www.cnblogs.com/shuds/articles/15968119.html)：自定义EasyCode的模版，实现生成符合我们项目需求的业务代码自动生成脚手架
 
 <br>
 
@@ -54,7 +76,6 @@
 
 > ⚠️注意：我们都在dev分支上工作，拉取dev分支上的代码，将本地的工作都提交到dev分支上。
 >
-> 
 
 
 
