@@ -4,7 +4,7 @@
 
 ### 仓库文件夹说明
 
-<img src="https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220307112806.png" alt="image-20220307112805041" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220307113034.png" alt="image-20220307113033972" style="zoom:50%;" />
 
 
 
