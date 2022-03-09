@@ -11,6 +11,7 @@
     <module>bmmp-library-infrastructure</module>
     <module>bmmp-domain-administrator</module>
     <module>bmmp-domain-example</module>
+    <module>bmmp-seckill</module>
 
   </modules>
   <packaging>pom</packaging>

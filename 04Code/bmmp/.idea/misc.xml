@@ -9,6 +9,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-Administrator/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-seckill/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
