@@ -9,7 +9,6 @@
   <version>1.0.0</version>
   <name>bmmp-library-infrastructure</name>
 
-
   <properties>
     <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
     <spring-cloud.version>2020.0.1</spring-cloud.version>
