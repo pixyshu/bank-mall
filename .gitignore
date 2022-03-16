@@ -4,3 +4,5 @@
 # IDEA #
 /.idea/
 *.iml
+
+/04Code/bmmpfre/node_modules/
