@@ -17,6 +17,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bmmp-domain-administrator" options="-parameters" />
+      <module name="bmmp-domain-example" options="-parameters" />
+      <module name="bmmp-library-infrastructure" options="-parameters" />
       <module name="bmmp-platform-gateway" options="" />
       <module name="bmmp-seckill" options="-parameters" />
     </option>

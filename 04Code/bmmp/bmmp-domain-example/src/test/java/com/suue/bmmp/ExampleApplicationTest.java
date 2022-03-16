@@ -1,6 +1,5 @@
 package com.suue.bmmp;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -10,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ExampleApplicationTest
 {
 
-    @Test
+
     public void shouldAnswerWithTrue()
     {
 
