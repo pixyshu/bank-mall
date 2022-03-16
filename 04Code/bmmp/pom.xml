@@ -87,7 +87,6 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- *********持久层相关依赖 start********* -->
       <!--Mysql数据库驱动-->
       <dependency>
         <groupId>mysql</groupId>
@@ -113,7 +112,6 @@
         <artifactId>druid-spring-boot-starter</artifactId>
         <version>${druid.version}</version>
       </dependency>
-      <!-- *********持久层相关依赖 end********* -->
 
       <!-- fastjson -->
       <dependency>
