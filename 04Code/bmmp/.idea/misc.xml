@@ -9,15 +9,20 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-Administrator/pom.xml" />
-        <option value="$PROJECT_DIR$/bmmp-seckill/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-tools/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-common/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-domain/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-platform/bmmp-platform-authority/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/bmmp-domain-authority/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-domain-example/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-order/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-product/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-security/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-platform-gateway/pom.xml" />
       </set>
     </option>
   </component>

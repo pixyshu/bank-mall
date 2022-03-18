@@ -7,153 +7,22 @@
   <artifactId>bmmp</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
+  <name>${project.artifactId}</name>
+  <description>项目依赖管理</description>
+
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
 
   <modules>
-    <module>bmmp-platform-gateway</module>
-    <module>bmmp-library-infrastructure</module>
-    <module>bmmp-domain-administrator</module>
-    <module>bmmp-domain-example</module>
-    <module>bmmp-seckill</module>
+    <module>bmmp-parent</module>
+    <module>bmmp-domain</module>
+    <module>bmmp-common</module>
+    <module>bmmp-platform</module>
   </modules>
-
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.2</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-
-  <properties>
-    <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-    <spring-cloud.version>2020.0.1</spring-cloud.version>
-    <spring-boot.version>2.4.2</spring-boot.version>
-    <mysql-connector.version>8.0.28</mysql-connector.version>
-    <pagehelper.version>1.2.10</pagehelper.version>
-    <lombok.version>1.18.22</lombok.version>
-    <druid.version>1.2.8</druid.version>
-    <fastjson.version>1.2.79</fastjson.version>
-    <swagger.version>3.0.0</swagger.version>
-    <hutool-all.version>4.6.3</hutool-all.version>
-    <hibernate-validator.version>6.0.1.Final</hibernate-validator.version>
-  </properties>
-
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-all</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-  </dependencies>
-
-
-  <dependencyManagement>
-    <dependencies>
-      <!--Spring Cloud 相关依赖-->
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <!--Spring Cloud Alibaba 相关依赖-->
-      <dependency>
-        <groupId>com.alibaba.cloud</groupId>
-        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-        <version>${spring-cloud-alibaba.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!--Mysql数据库驱动-->
-      <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>${mysql-connector.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <!--MyBatis分页插件-->
-      <dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper-spring-boot-starter</artifactId>
-        <version>${pagehelper.version}</version>
-      </dependency>
-      <!-- lombox -->
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
-      </dependency>
-      <!--集成druid连接池-->
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>druid-spring-boot-starter</artifactId>
-        <version>${druid.version}</version>
-      </dependency>
-
-      <!-- fastjson -->
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>fastjson</artifactId>
-        <version>${fastjson.version}</version>
-      </dependency>
-      <!--swagger官方Starter-->
-      <dependency>
-        <groupId>io.springfox</groupId>
-        <artifactId>springfox-boot-starter</artifactId>
-        <version>${swagger.version}</version>
-      </dependency>
-      <!-- hutool -->
-      <dependency>
-        <groupId>cn.hutool</groupId>
-        <artifactId>hutool-all</artifactId>
-        <version>${hutool-all.version}</version>
-      </dependency>
-      <!-- validator -->
-      <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>${hibernate-validator.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-
-  <repositories>
-    <repository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-    </repository>
-  </repositories>
 </project>

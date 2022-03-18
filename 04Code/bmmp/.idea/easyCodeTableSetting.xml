@@ -229,9 +229,9 @@
               </option>
               <option name="name" value="PmsBrand" />
               <option name="preName" value="pms" />
-              <option name="saveModelName" value="bmmp-domain-example" />
+              <option name="saveModelName" value="bmmp-domain-brand" />
               <option name="savePackageName" value="com.suue.bmmp" />
-              <option name="savePath" value="./bmmp-domain-example/src/main/java/com/suue/bmmp" />
+              <option name="savePath" value="./bmmp-domain/bmmp-domain-brand/src/main/java/com/suue/bmmp" />
               <option name="templateGroupName" value="Default" />
             </TableInfoDTO>
           </value>

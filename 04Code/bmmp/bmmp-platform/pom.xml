@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.suue.bmmp</groupId>
+        <artifactId>bmmp-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../bmmp-parent</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.suue.bmmp</groupId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>bmmp-platform-authority</module>
+        <module>bmmp-platform-gateway</module>
+    </modules>
+    <artifactId>bmmp-platform</artifactId>
+    <name>${project.artifactId}</name>
+    <description>支撑服务父pom</description>
+    <!-- 例如网关服务、监控服务、检索服务放在这里 -->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.suue.bmmp</groupId>
+            <artifactId>bmmp-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+    </dependencies>
+</project>
