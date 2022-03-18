@@ -10,6 +10,7 @@
         <module name="bmmp-domain-brand" />
         <module name="bmmp-common" />
         <module name="bmmp-platform-gateway" />
+        <module name="bmmp-platform-security" />
         <module name="bmmp-platform-authority" />
       </profile>
     </annotationProcessing>
@@ -32,6 +33,7 @@
       <module name="bmmp-parent" options="-parameters" />
       <module name="bmmp-platform-authority" options="-parameters" />
       <module name="bmmp-platform-gateway" options="-parameters" />
+      <module name="bmmp-platform-security" options="-parameters" />
       <module name="bmmp-seckill" options="-parameters" />
       <module name="bmmp-tools" options="-parameters" />
     </option>

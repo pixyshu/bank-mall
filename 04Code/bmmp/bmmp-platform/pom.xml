@@ -15,6 +15,7 @@
     <modules>
         <module>bmmp-platform-authority</module>
         <module>bmmp-platform-gateway</module>
+        <module>bmmp-platform-security</module>
     </modules>
     <artifactId>bmmp-platform</artifactId>
     <name>${project.artifactId}</name>

@@ -1,3 +1,10 @@
+# @xxx@ 从pom.xml中取值, 所以 @xx@ 标注的值，都不能从nacos中获取
+bmmp:
+  nacos:
+    ip: ${NACOS_IP:@pom.nacos.ip@}
+    port: ${NACOS_PORT:@pom.nacos.port@}
+    namespace: ${NACOS_ID:@pom.nacos.namespace@}
+
 server:
   port: 9201
 spring:
@@ -8,7 +15,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: ${bmmp.nacos.ip}:${bmmp.nacos.port}
+        namespace: ${bmmp.nacos.namespace}
     gateway:
       routes: #配置路由规则
         - id: oauth2-api-route
