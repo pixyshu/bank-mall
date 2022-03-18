@@ -2,9 +2,13 @@
 
 ## 项目简介
 
-### 仓库文件夹说明
+### 仓库文件夹介绍
+
+
 
 <img src="https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220307113034.png" alt="image-20220307113033972" style="zoom:50%;" />
+
+
 
 
 
@@ -15,6 +19,29 @@
 - 服务端项目缩写：bmmp
 - 管理平台前端项目缩写：bmmpfre
 - 客户端前端项目缩写：bmfre
+
+### bmmp项目模块介绍
+
+```xml
+bmmp-authority              #聚合工程，用于聚合bmmp-parent、bmmp-apps、bmmp-tools等模块
+├── bmmp-parent				 # 父工程，nacos配置及依赖包管理
+├── bmmp-apps					 # 应用目录
+	├── bmmp-auth				 # 权限服务父工程
+	├── bmmp-gateway			 # 网关服务
+	├── bmmp-gateway			 # 网关服务
+	├── bmmp-gateway			 # 网关服务
+	├── bmmp-gateway			 # 网关服务
+└── pd-tools				 # 工具工程
+	├── pd-tools-common		 # 基础组件：基础配置类、函数、常量、统一异常处理
+	├── pd-tools-core		 # 核心组件：基础实体、返回对象、上下文、异常处理、分布式锁、函数、树
+	├── pd-tools-j2cache	 # 缓存组件：j2cache、redis缓存
+	├── pd-tools-log	     # 日志组件：日志实体、事件、拦截器、工具
+	├── pd-tools-user        # 用户上下文：用户注解、模型和工具，当前登录用户信息注入模块
+	├── pd-tools-validator	 # 表单验证： 后台表单规则验证
+	├── pd-tools-xss		 # xss防注入组件
+```
+
+
 
 <br>
 
