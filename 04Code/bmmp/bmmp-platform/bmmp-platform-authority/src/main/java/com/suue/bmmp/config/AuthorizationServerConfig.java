@@ -31,7 +31,7 @@ import java.util.List;
 @AllArgsConstructor
 @Configuration
 @EnableAuthorizationServer
-public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
@@ -67,8 +67,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     /**
-     * 配置访问令牌的端点和令牌服务
-     * 即如何发放令牌
+     * 令牌访问端点配置
+     * 配置访问令牌的端点和令牌服务,即如何发放令牌
      * @param endpoints
      * @throws Exception
      */
@@ -88,7 +88,6 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 配置令牌端点的安全约束
-     *
      * @param security
      * @throws Exception
      */

@@ -29,10 +29,6 @@
         <!-- 开发 -->
         <profile>
             <id>dev</id>
-            <activation>
-                <!--默认激活配置-->
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <!--当前环境-->
                 <pom.profile.name>dev</pom.profile.name>
@@ -41,18 +37,36 @@
                 <pom.nacos.port>8848</pom.nacos.port>
                 <!--Nacos配置中心命名空间,用于支持多环境.这里必须使用ID，不能使用名称,默认为空-->
                 <pom.nacos.namespace>3cff87ab-db67-4c7b-bd42-7c4e47f02168</pom.nacos.namespace>
+                <!-- 本地数据源配置 -->
+                <datasource.username>root</datasource.username>
+                <datasource.password>123456</datasource.password>
+                <datasource.host>101.35.51.48</datasource.host>
+                <datasource.port>3306</datasource.port>
+                <datasource.table>bank_mall</datasource.table>
             </properties>
         </profile>
-        <!-- docker 环境 -->
+        <!-- 本地 -->
         <profile>
-            <id>docker</id>
+            <id>local</id>
+            <activation>
+                <!--默认激活配置-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
-                <pom.profile.name>docker</pom.profile.name>
+                <!--本地环境-->
+                <pom.profile.name>local</pom.profile.name>
                 <!--Nacos配置中心地址-->
-                <pom.nacos.ip>192.168.1.34</pom.nacos.ip>
+                <pom.nacos.ip>127.0.0.1</pom.nacos.ip>
                 <pom.nacos.port>8848</pom.nacos.port>
                 <!--Nacos配置中心命名空间,用于支持多环境.这里必须使用ID，不能使用名称,默认为空-->
-                <pom.nacos.namespace>3bef359b-1ef7-4816-9c31-adb694b90bbe</pom.nacos.namespace>
+                <pom.nacos.namespace>d311748f-8cef-4cf4-b36e-1ac135085ddc</pom.nacos.namespace>
+
+                <!-- 本地数据源配置 -->
+                <datasource.username>root</datasource.username>
+                <datasource.password>123456</datasource.password>
+                <datasource.host>127.0.0.1</datasource.host>
+                <datasource.port>3306</datasource.port>
+                <datasource.table>bank_mall</datasource.table>
             </properties>
         </profile>
         <!-- 生产 -->
@@ -78,24 +92,27 @@
         <spring-cloud.version>2020.0.1</spring-cloud.version>
         <spring-boot.version>2.4.2</spring-boot.version>
         <mysql-connector.version>8.0.28</mysql-connector.version>
-        <pagehelper.version>1.2.10</pagehelper.version>
+        <pagehelper-stater.version>1.2.10</pagehelper-stater.version>
+        <pagehelper.version>5.2.0</pagehelper.version>
         <lombok.version>1.18.22</lombok.version>
         <druid.version>1.2.8</druid.version>
         <fastjson.version>1.2.79</fastjson.version>
         <swagger.version>3.0.0</swagger.version>
         <hutool-all.version>4.6.3</hutool-all.version>
         <hibernate-validator.version>6.0.1.Final</hibernate-validator.version>
+        <knife4j.version>2.0.4</knife4j.version>
     </properties>
 
     <dependencies>
+        <!-- Actuator（收集监控信息暴露给JMX Server）-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-aop</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -147,6 +164,12 @@
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-stater.version}</version>
+            </dependency>
+            <!--MyBatis分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
             </dependency>
             <!-- lombox -->
@@ -186,55 +209,69 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
             </dependency>
+            <!--Knife4j API文档生产工具-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
+<!--    <build>-->
+<!--        <finalName>${project.artifactId}</finalName>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <includes>-->
+<!--                    <include>**/*</include>-->
+<!--                </includes>-->
+<!--                <filtering>true</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--        <pluginManagement>-->
+<!--            <plugins>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                    <version>${maven.compiler.plugin.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <source>${java.version}</source>-->
+<!--                        <target>${java.version}</target>-->
+<!--                        <encoding>${project.build.sourceEncoding}</encoding>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--            </plugins>-->
+<!--        </pluginManagement>-->
+<!--        <plugins>-->
+<!--            &lt;!&ndash; resources资源插件 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                    &lt;!&ndash; 后缀为pem、pfx的证书文件 &ndash;&gt;-->
+<!--                    <nonFilteredFileExtensions>-->
+<!--                        <nonFilteredFileExtension>pem</nonFilteredFileExtension>-->
+<!--                        <nonFilteredFileExtension>pfx</nonFilteredFileExtension>-->
+<!--                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>-->
+<!--                        <nonFilteredFileExtension>key</nonFilteredFileExtension>-->
+<!--                    </nonFilteredFileExtensions>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            &lt;!&ndash; java文档插件 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
     <build>
-        <finalName>${project.artifactId}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.plugin.version}</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
-            <!-- resources资源插件 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <!-- 后缀为pem、pfx的证书文件 -->
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>pem</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>pfx</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>key</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
-            <!-- java文档插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

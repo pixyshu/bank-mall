@@ -15,22 +15,11 @@
     <modules>
         <module>bmmp-platform-authority</module>
         <module>bmmp-platform-gateway</module>
-        <module>bmmp-platform-security</module>
     </modules>
+
     <artifactId>bmmp-platform</artifactId>
     <name>${project.artifactId}</name>
     <description>支撑服务父pom</description>
     <!-- 例如网关服务、监控服务、检索服务放在这里 -->
 
-    <dependencies>
-        <dependency>
-            <groupId>com.suue.bmmp</groupId>
-            <artifactId>bmmp-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-    </dependencies>
 </project>

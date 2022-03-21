@@ -15,3 +15,4 @@ public class AuthorityApplication {
         SpringApplication.run(AuthorityApplication.class);
     }
 }
+

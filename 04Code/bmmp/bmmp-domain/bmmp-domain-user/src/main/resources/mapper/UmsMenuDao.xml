@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suue.bmmp.dao.UmsMenuDao">
+
+    <resultMap type="com.suue.bmmp.entity.UmsMenu" id="UmsMenuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="hidden" column="hidden" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UmsMenuMap">
+        select
+          id, parent_id, create_time, title, level, sort, name, icon, hidden
+        from ums_menu
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from ums_menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="level != null">
+                and level = #{level}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="hidden != null">
+                and hidden = #{hidden}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into ums_menu(parent_id, create_time, title, level, sort, name, icon, hidden)
+        values (#{parentId}, #{createTime}, #{title}, #{level}, #{sort}, #{name}, #{icon}, #{hidden})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ums_menu(parent_id, create_time, title, level, sort, name, icon, hidden)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.parentId}, #{entity.createTime}, #{entity.title}, #{entity.level}, #{entity.sort}, #{entity.name}, #{entity.icon}, #{entity.hidden})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ums_menu(parent_id, create_time, title, level, sort, name, icon, hidden)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.parentId}, #{entity.createTime}, #{entity.title}, #{entity.level}, #{entity.sort}, #{entity.name}, #{entity.icon}, #{entity.hidden})
+        </foreach>
+        on duplicate key update
+        parent_id = values(parent_id),
+        create_time = values(create_time),
+        title = values(title),
+        level = values(level),
+        sort = values(sort),
+        name = values(name),
+        icon = values(icon),
+        hidden = values(hidden)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update ums_menu
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="hidden != null">
+                hidden = #{hidden},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from ums_menu where id = #{id}
+    </delete>
+
+<!--条件查询所有数据-->
+    <select id="queryAll" resultMap="UmsMenuMap">
+        select
+          id, parent_id, create_time, title, level, sort, name, icon, hidden
+        from ums_menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="level != null">
+                and level = #{level}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="hidden != null">
+                and hidden = #{hidden}
+            </if>
+        </where>
+    </select>
+</mapper>
+
+

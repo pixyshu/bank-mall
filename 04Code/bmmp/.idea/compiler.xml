@@ -7,19 +7,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bmmp-domain-brand" />
         <module name="bmmp-common" />
         <module name="bmmp-platform-gateway" />
-        <module name="bmmp-platform-security" />
         <module name="bmmp-platform-authority" />
+        <module name="bmmp-domain-user" />
+        <module name="bmmp-domain-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="bmmp-domain-administrator" target="1.8" />
       <module name="bmmp-domain-example" target="1.8" />
       <module name="bmmp-domain-security" target="1.8" />
+      <module name="bmmp-platform-security" target="8" />
       <module name="bmmp-seckill" target="1.8" />
       <module name="bmmp-tools" target="1.8" />
+      <module name="micro-oauth2-api" target="1.8" />
+      <module name="micro-oauth2-auth" target="1.8" />
+      <module name="micro-oauth2-gateway" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -27,15 +31,19 @@
       <module name="bmmp-common" options="-parameters" />
       <module name="bmmp-domain" options="-parameters" />
       <module name="bmmp-domain-administrator" options="-parameters" />
-      <module name="bmmp-domain-brand" options="-parameters" />
+      <module name="bmmp-domain-demo" options="-parameters" />
       <module name="bmmp-domain-example" options="-parameters" />
       <module name="bmmp-domain-security" options="-parameters" />
+      <module name="bmmp-domain-user" options="-parameters" />
       <module name="bmmp-parent" options="-parameters" />
       <module name="bmmp-platform-authority" options="-parameters" />
       <module name="bmmp-platform-gateway" options="-parameters" />
       <module name="bmmp-platform-security" options="-parameters" />
       <module name="bmmp-seckill" options="-parameters" />
       <module name="bmmp-tools" options="-parameters" />
+      <module name="micro-oauth2-api" options="-parameters" />
+      <module name="micro-oauth2-auth" options="-parameters" />
+      <module name="micro-oauth2-gateway" options="-parameters" />
     </option>
   </component>
 </project>

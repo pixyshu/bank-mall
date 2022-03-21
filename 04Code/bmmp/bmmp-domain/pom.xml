@@ -6,14 +6,15 @@
         <groupId>com.suue.bmmp</groupId>
         <artifactId>bmmp-parent</artifactId>
         <version>1.0.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../bmmp-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.suue.bmmp</groupId>
     <packaging>pom</packaging>
     <modules>
-        <module>bmmp-domain-brand</module>
+        <module>bmmp-domain-user</module>
+        <module>bmmp-domain-demo</module>
     </modules>
     <artifactId>bmmp-domain</artifactId>
     <name>${project.artifactId}</name>
@@ -21,37 +22,11 @@
     <!-- 具体的业务操作，例如产品管理服务、订单管理服务、用户管理服务放在这里 -->
 
     <dependencies>
+        <!-- 公共资源依赖包 -->
         <dependency>
             <groupId>com.suue.bmmp</groupId>
             <artifactId>bmmp-common</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <!--Mysql数据库驱动-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!--MyBatis分页插件-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-        </dependency>
-        <!--集成druid连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-        </dependency>
-        <!--swagger官方Starter-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-        </dependency>
-        <!-- validator -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
         </dependency>
     </dependencies>
 </project>
