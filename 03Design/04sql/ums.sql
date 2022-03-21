@@ -1,315 +1,440 @@
-/*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2022/3/14 14:48:52                           */
-/*==============================================================*/
+/*
+ Navicat Premium Data Transfer
 
+ Source Server         : mysql
+ Source Server Type    : MySQL
+ Source Server Version : 100604
+ Source Host           : localhost:3306
+ Source Schema         : mall
 
-drop table if exists ums_admin;
+ Target Server Type    : MySQL
+ Target Server Version : 100604
+ File Encoding         : 65001
 
-drop table if exists ums_admin_role;
+ Date: 21/03/2022 19:13:47
+*/
 
-drop table if exists ums_common_login_log;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-drop table if exists ums_common_opt_log;
+-- ----------------------------
+-- Table structure for ums_admin
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_admin`;
+CREATE TABLE `ums_admin` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL,
+  `icon` varchar(500) DEFAULT NULL COMMENT '头像',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `nick_name` varchar(200) DEFAULT NULL COMMENT '昵称',
+  `note` varchar(500) DEFAULT NULL COMMENT '备注信息',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `login_time` datetime DEFAULT NULL COMMENT '最后登录时间',
+  `status` int(1) DEFAULT 1 COMMENT '帐号启用状态：0->禁用；1->启用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户表';
 
-drop table if exists ums_menu;
+-- ----------------------------
+-- Records of ums_admin
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (1, 'test', '$2a$10$NZ5o7r2E.ayT2ZoxgjlI.eJ6OEYqjH7INR/F.mXDbjZJi9HF0YCVG', 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/timg.jpg', 'test@qq.com', '测试账号', NULL, '2018-09-29 13:55:30', '2018-09-29 13:55:39', 1);
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (3, 'admin', '$2a$10$.E1FokumK5GIXWgKlg.Hc.i/0/2.qdAwYFL1zc5QHdyzpXOr38RZO', 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/timg.jpg', 'admin@163.com', '系统管理员', '系统管理员', '2018-10-08 13:32:47', '2019-04-20 12:45:16', 1);
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (4, 'macro', '$2a$10$Bx4jZPR7GhEpIQfefDQtVeS58GfT5n6mxs/b4nLLK65eMFa16topa', 'string', 'macro@qq.com', 'macro', 'macro专用', '2019-10-06 15:53:51', '2020-02-03 14:55:55', 1);
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (6, 'productAdmin', '$2a$10$6/.J.p.6Bhn7ic4GfoB5D.pGd7xSiD1a9M6ht6yO0fxzlKJPjRAGm', NULL, 'product@qq.com', '商品管理员', '只有商品权限', '2020-02-07 16:15:08', NULL, 1);
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (7, 'orderAdmin', '$2a$10$UqEhA9UZXjHHA3B.L9wNG.6aerrBjC6WHTtbv1FdvYPUI.7lkL6E.', NULL, 'order@qq.com', '订单管理员', '只有订单管理权限', '2020-02-07 16:15:50', NULL, 1);
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (11, 'shuisheng', '$2a$10$MQUf.1emifRGsiS3aWVqOOGPxL5sNOAvzQFb3s5zGtN9RYeWL6api', 'http://1.con', 'test@163.com', 'test', 'note', '2022-03-21 15:24:21', NULL, 1);
+INSERT INTO `ums_admin` (`id`, `username`, `password`, `icon`, `email`, `nick_name`, `note`, `create_time`, `login_time`, `status`) VALUES (12, 'testshuisheng', '$2a$10$C9LkUXPh8UP8bjhk9bzjMudrqh39/v133hFENK0M4UfQJ9gLmRZze', '123', '123@qq.com', 'shuisheng', 'note', '2022-03-21 16:33:24', NULL, 1);
+COMMIT;
 
-drop table if exists ums_parameter;
+-- ----------------------------
+-- Table structure for ums_admin_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_admin_login_log`;
+CREATE TABLE `ums_admin_login_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `admin_id` bigint(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `ip` varchar(64) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `user_agent` varchar(100) DEFAULT NULL COMMENT '浏览器登录类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户登录日志表';
 
-drop table if exists ums_resource;
+-- ----------------------------
+-- Records of ums_admin_login_log
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-drop table if exists ums_role;
+-- ----------------------------
+-- Table structure for ums_admin_permission_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_admin_permission_relation`;
+CREATE TABLE `ums_admin_permission_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `admin_id` bigint(20) DEFAULT NULL,
+  `permission_id` bigint(20) DEFAULT NULL,
+  `type` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='后台用户和权限关系表(除角色中定义的权限以外的加减权限)';
 
-drop table if exists ums_role_authority;
+-- ----------------------------
+-- Records of ums_admin_permission_relation
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-drop table if exists ums_rule;
+-- ----------------------------
+-- Table structure for ums_admin_role_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_admin_role_relation`;
+CREATE TABLE `ums_admin_role_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `admin_id` bigint(20) DEFAULT NULL,
+  `role_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户和角色关系表';
 
-drop table if exists ums_rule_parameter;
+-- ----------------------------
+-- Records of ums_admin_role_relation
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_admin_role_relation` (`id`, `admin_id`, `role_id`) VALUES (26, 3, 5);
+INSERT INTO `ums_admin_role_relation` (`id`, `admin_id`, `role_id`) VALUES (27, 6, 1);
+INSERT INTO `ums_admin_role_relation` (`id`, `admin_id`, `role_id`) VALUES (28, 7, 2);
+INSERT INTO `ums_admin_role_relation` (`id`, `admin_id`, `role_id`) VALUES (29, 1, 5);
+INSERT INTO `ums_admin_role_relation` (`id`, `admin_id`, `role_id`) VALUES (30, 4, 5);
+COMMIT;
 
-drop table if exists ums_user;
+-- ----------------------------
+-- Table structure for ums_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_menu`;
+CREATE TABLE `ums_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父级ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `title` varchar(100) DEFAULT NULL COMMENT '菜单名称',
+  `level` int(4) DEFAULT NULL COMMENT '菜单级数',
+  `sort` int(4) DEFAULT NULL COMMENT '菜单排序',
+  `name` varchar(100) DEFAULT NULL COMMENT '前端名称',
+  `icon` varchar(200) DEFAULT NULL COMMENT '前端图标',
+  `hidden` int(1) DEFAULT NULL COMMENT '前端隐藏',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3 COMMENT='后台菜单表';
 
-/*==============================================================*/
-/* Table: ums_admin                                             */
-/*==============================================================*/
-create table ums_admin
-(
-   id                   bigint not null auto_increment comment '主键',
-   account              varchar(64) comment ' 账号',
-   name                 varchar(64) comment '姓名',
-   email                varchar(64) comment '邮箱',
-   mobile               varchar(64) comment '手机号',
-   sex                  varchar(20) comment '性别',
-   status               bit comment '启用状态',
-   avatar               varchar(128) comment '头像',
-   work_description     varchar(256) comment '工作描述',
-   password_error_last_time datetime comment '最后一次输错密码时间',
-   password_error_num   int comment '密码错误次数',
-   password_expire_time datetime comment '密码过期时间',
-   password             varchar(128) comment '密码',
-   last_login_time      datetime comment '最后登录时间',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   update_user          bigint comment '更新人ID',
-   update_time          datetime comment '更新时间',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (1, 0, '2020-02-02 14:50:36', '商品', 0, 0, 'pms', 'product', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (2, 1, '2020-02-02 14:51:50', '商品列表', 1, 0, 'product', 'product-list', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (3, 1, '2020-02-02 14:52:44', '添加商品', 1, 0, 'addProduct', 'product-add', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (4, 1, '2020-02-02 14:53:51', '商品分类', 1, 0, 'productCate', 'product-cate', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (5, 1, '2020-02-02 14:54:51', '商品类型', 1, 0, 'productAttr', 'product-attr', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (6, 1, '2020-02-02 14:56:29', '品牌管理', 1, 0, 'brand', 'product-brand', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (7, 0, '2020-02-02 16:54:07', '订单', 0, 0, 'oms', 'order', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (8, 7, '2020-02-02 16:55:18', '订单列表', 1, 0, 'order', 'product-list', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (9, 7, '2020-02-02 16:56:46', '订单设置', 1, 0, 'orderSetting', 'order-setting', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (10, 7, '2020-02-02 16:57:39', '退货申请处理', 1, 0, 'returnApply', 'order-return', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (11, 7, '2020-02-02 16:59:40', '退货原因设置', 1, 0, 'returnReason', 'order-return-reason', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (12, 0, '2020-02-04 16:18:00', '营销', 0, 0, 'sms', 'sms', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (13, 12, '2020-02-04 16:19:22', '秒杀活动列表', 1, 0, 'flash', 'sms-flash', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (14, 12, '2020-02-04 16:20:16', '优惠券列表', 1, 0, 'coupon', 'sms-coupon', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (16, 12, '2020-02-07 16:22:38', '品牌推荐', 1, 0, 'homeBrand', 'product-brand', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (17, 12, '2020-02-07 16:23:14', '新品推荐', 1, 0, 'homeNew', 'sms-new', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (18, 12, '2020-02-07 16:26:38', '人气推荐', 1, 0, 'homeHot', 'sms-hot', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (19, 12, '2020-02-07 16:28:16', '专题推荐', 1, 0, 'homeSubject', 'sms-subject', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (20, 12, '2020-02-07 16:28:42', '广告列表', 1, 0, 'homeAdvertise', 'sms-ad', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (21, 0, '2020-02-07 16:29:13', '权限', 0, 0, 'ums', 'ums', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (22, 21, '2020-02-07 16:29:51', '用户列表', 1, 0, 'admin', 'ums-admin', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (23, 21, '2020-02-07 16:30:13', '角色列表', 1, 0, 'role', 'ums-role', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (24, 21, '2020-02-07 16:30:53', '菜单列表', 1, 0, 'menu', 'ums-menu', 0);
+INSERT INTO `ums_menu` (`id`, `parent_id`, `create_time`, `title`, `level`, `sort`, `name`, `icon`, `hidden`) VALUES (25, 21, '2020-02-07 16:31:13', '资源列表', 1, 0, 'resource', 'ums-resource', 0);
+COMMIT;
 
-alter table ums_admin comment '管理员用户表';
+-- ----------------------------
+-- Table structure for ums_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_permission`;
+CREATE TABLE `ums_permission` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `pid` bigint(20) DEFAULT NULL COMMENT '父级权限id',
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `value` varchar(200) DEFAULT NULL COMMENT '权限值',
+  `icon` varchar(500) DEFAULT NULL COMMENT '图标',
+  `type` int(1) DEFAULT NULL COMMENT '权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）',
+  `uri` varchar(200) DEFAULT NULL COMMENT '前端资源路径',
+  `status` int(1) DEFAULT NULL COMMENT '启用状态；0->禁用；1->启用',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户权限表';
 
-/*==============================================================*/
-/* Table: ums_admin_role                                        */
-/*==============================================================*/
-create table ums_admin_role
-(
-   id                   bigint not null comment '主键',
-   role_id              bigint comment '角色ID',
-   admin_id             bigint comment '用户ID',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_permission
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (1, 0, '商品', NULL, NULL, 0, NULL, 1, '2018-09-29 16:15:14', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (2, 1, '商品列表', 'pms:product:read', NULL, 1, '/pms/product/index', 1, '2018-09-29 16:17:01', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (3, 1, '添加商品', 'pms:product:create', NULL, 1, '/pms/product/add', 1, '2018-09-29 16:18:51', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (4, 1, '商品分类', 'pms:productCategory:read', NULL, 1, '/pms/productCate/index', 1, '2018-09-29 16:23:07', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (5, 1, '商品类型', 'pms:productAttribute:read', NULL, 1, '/pms/productAttr/index', 1, '2018-09-29 16:24:43', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (6, 1, '品牌管理', 'pms:brand:read', NULL, 1, '/pms/brand/index', 1, '2018-09-29 16:25:45', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (7, 2, '编辑商品', 'pms:product:update', NULL, 2, '/pms/product/updateProduct', 1, '2018-09-29 16:34:23', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (8, 2, '删除商品', 'pms:product:delete', NULL, 2, '/pms/product/delete', 1, '2018-09-29 16:38:33', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (9, 4, '添加商品分类', 'pms:productCategory:create', NULL, 2, '/pms/productCate/create', 1, '2018-09-29 16:43:23', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (10, 4, '修改商品分类', 'pms:productCategory:update', NULL, 2, '/pms/productCate/update', 1, '2018-09-29 16:43:55', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (11, 4, '删除商品分类', 'pms:productCategory:delete', NULL, 2, '/pms/productAttr/delete', 1, '2018-09-29 16:44:38', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (12, 5, '添加商品类型', 'pms:productAttribute:create', NULL, 2, '/pms/productAttr/create', 1, '2018-09-29 16:45:25', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (13, 5, '修改商品类型', 'pms:productAttribute:update', NULL, 2, '/pms/productAttr/update', 1, '2018-09-29 16:48:08', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (14, 5, '删除商品类型', 'pms:productAttribute:delete', NULL, 2, '/pms/productAttr/delete', 1, '2018-09-29 16:48:44', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (15, 6, '添加品牌', 'pms:brand:create', NULL, 2, '/pms/brand/add', 1, '2018-09-29 16:49:34', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (16, 6, '修改品牌', 'pms:brand:update', NULL, 2, '/pms/brand/update', 1, '2018-09-29 16:50:55', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (17, 6, '删除品牌', 'pms:brand:delete', NULL, 2, '/pms/brand/delete', 1, '2018-09-29 16:50:59', 0);
+INSERT INTO `ums_permission` (`id`, `pid`, `name`, `value`, `icon`, `type`, `uri`, `status`, `create_time`, `sort`) VALUES (18, 0, '首页', NULL, NULL, 0, NULL, 1, '2018-09-29 16:51:57', 0);
+COMMIT;
 
-alter table ums_admin_role comment ' 用户角色关系表';
+-- ----------------------------
+-- Table structure for ums_resource
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_resource`;
+CREATE TABLE `ums_resource` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `name` varchar(200) DEFAULT NULL COMMENT '资源名称',
+  `url` varchar(200) DEFAULT NULL COMMENT '资源URL',
+  `description` varchar(500) DEFAULT NULL COMMENT '描述',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '资源分类ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COMMENT='后台资源表';
 
-/*==============================================================*/
-/* Table: ums_common_login_log                                  */
-/*==============================================================*/
-create table ums_common_login_log
-(
-   id                   bigint not null auto_increment comment '主键',
-   admin_id             bigint comment '登陆人ID',
-   user_name            varchar(64) comment '登录人姓名',
-   account              varchar(64) comment '登录人账号',
-   description          varchar(256) comment '登录描述',
-   login_date           datetime comment '登录时间',
-   ua                   varchar(128) comment '浏览器请求头',
-   browser              varchar(64) comment '浏览器名称',
-   browser_version      varchar(64) comment '浏览器版本',
-   operation_system     varchar(64) comment '操作系统',
-   request_ip           varchar(64) comment '操作IP',
-   location             varchar(64) comment '登录地点',
-   create_time          datetime comment '创建时间',
-   create_user          bigint comment '创建人ID',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_resource
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (1, '2020-02-04 17:04:55', '商品品牌管理', '/brand/**', NULL, 1);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (2, '2020-02-04 17:05:35', '商品属性分类管理', '/productAttribute/**', NULL, 1);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (3, '2020-02-04 17:06:13', '商品属性管理', '/productAttribute/**', NULL, 1);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (4, '2020-02-04 17:07:15', '商品分类管理', '/productCategory/**', NULL, 1);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (5, '2020-02-04 17:09:16', '商品管理', '/product/**', NULL, 1);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (6, '2020-02-04 17:09:53', '商品库存管理', '/sku/**', NULL, 1);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (8, '2020-02-05 14:43:37', '订单管理', '/order/**', '', 2);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (9, '2020-02-05 14:44:22', ' 订单退货申请管理', '/returnApply/**', '', 2);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (10, '2020-02-05 14:45:08', '退货原因管理', '/returnReason/**', '', 2);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (11, '2020-02-05 14:45:43', '订单设置管理', '/orderSetting/**', '', 2);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (12, '2020-02-05 14:46:23', '收货地址管理', '/companyAddress/**', '', 2);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (13, '2020-02-07 16:37:22', '优惠券管理', '/coupon/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (14, '2020-02-07 16:37:59', '优惠券领取记录管理', '/couponHistory/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (15, '2020-02-07 16:38:28', '限时购活动管理', '/flash/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (16, '2020-02-07 16:38:59', '限时购商品关系管理', '/flashProductRelation/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (17, '2020-02-07 16:39:22', '限时购场次管理', '/flashSession/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (18, '2020-02-07 16:40:07', '首页轮播广告管理', '/home/advertise/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (19, '2020-02-07 16:40:34', '首页品牌管理', '/home/brand/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (20, '2020-02-07 16:41:06', '首页新品管理', '/home/newProduct/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (21, '2020-02-07 16:42:16', '首页人气推荐管理', '/home/recommendProduct/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (22, '2020-02-07 16:42:48', '首页专题推荐管理', '/home/recommendSubject/**', '', 3);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (23, '2020-02-07 16:44:56', ' 商品优选管理', '/prefrenceArea/**', '', 5);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (24, '2020-02-07 16:45:39', '商品专题管理', '/subject/**', '', 5);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (25, '2020-02-07 16:47:34', '后台用户管理', '/admin/**', '', 4);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (26, '2020-02-07 16:48:24', '后台用户角色管理', '/role/**', '', 4);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (27, '2020-02-07 16:48:48', '后台菜单管理', '/menu/**', '', 4);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (28, '2020-02-07 16:49:18', '后台资源分类管理', '/resourceCategory/**', '', 4);
+INSERT INTO `ums_resource` (`id`, `create_time`, `name`, `url`, `description`, `category_id`) VALUES (29, '2020-02-07 16:49:45', '后台资源管理', '/resource/**', '', 4);
+COMMIT;
 
-alter table ums_common_login_log comment '后台用户登录日志表';
+-- ----------------------------
+-- Table structure for ums_resource_category
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_resource_category`;
+CREATE TABLE `ums_resource_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `name` varchar(200) DEFAULT NULL COMMENT '分类名称',
+  `sort` int(4) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COMMENT='资源分类表';
 
-/*==============================================================*/
-/* Table: ums_common_opt_log                                    */
-/*==============================================================*/
-create table ums_common_opt_log
-(
-   id                   bigint not null auto_increment comment '主键',
-   request_ip           bigint comment '操作IP',
-   type                 varchar(20) comment '日志类型 OPT:操作类型 EX:异常类型',
-   user_name            varchar(64) comment '操作人',
-   description          varchar(128) comment '操作描述',
-   calss_path           varchar(64) comment '类路径',
-   action_method        varchar(64) comment '请求方法',
-   request_uri          varchar(64) comment '请求地址',
-   http_method          varchar(64) comment '请求类型  GET:GET请求;POST:POST请求;PUT:PUT请求;DELETE:DELETE请求;PATCH:PATCH请求;TRACE:TRACE请求;HEAD:HEAD请求;OPTIONS:OPTIONS请求',
-   params               longtext comment '请求参数',
-   result               longtext comment '返回值',
-   ex_desc              longtext comment '异常详情信息',
-   ex_detail            longtext comment '异常描述',
-   start_time           datetime comment '开始时间',
-   finish_time          datetime comment '完成时间',
-   consuming_time       bigint comment '消耗时间',
-   ua                   varchar(64) comment '浏览器请求头',
-   create_time          datetime comment '创建时间',
-   create_user          bigint comment '创建人ID',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_resource_category
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_resource_category` (`id`, `create_time`, `name`, `sort`) VALUES (1, '2020-02-05 10:21:44', '商品模块', 0);
+INSERT INTO `ums_resource_category` (`id`, `create_time`, `name`, `sort`) VALUES (2, '2020-02-05 10:22:34', '订单模块', 0);
+INSERT INTO `ums_resource_category` (`id`, `create_time`, `name`, `sort`) VALUES (3, '2020-02-05 10:22:48', '营销模块', 0);
+INSERT INTO `ums_resource_category` (`id`, `create_time`, `name`, `sort`) VALUES (4, '2020-02-05 10:23:04', '权限模块', 0);
+INSERT INTO `ums_resource_category` (`id`, `create_time`, `name`, `sort`) VALUES (5, '2020-02-07 16:34:27', '内容模块', 0);
+INSERT INTO `ums_resource_category` (`id`, `create_time`, `name`, `sort`) VALUES (6, '2020-02-07 16:35:49', '其他模块', 0);
+COMMIT;
 
-alter table ums_common_opt_log comment '用户操作日志表';
+-- ----------------------------
+-- Table structure for ums_role
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_role`;
+CREATE TABLE `ums_role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `description` varchar(500) DEFAULT NULL COMMENT '描述',
+  `admin_count` int(11) DEFAULT NULL COMMENT '后台用户数量',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `status` int(1) DEFAULT 1 COMMENT '启用状态：0->禁用；1->启用',
+  `sort` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户角色表';
 
-/*==============================================================*/
-/* Table: ums_menu                                              */
-/*==============================================================*/
-create table ums_menu
-(
-   id                   bigint not null comment '主键',
-   name                 varchar(64) comment '菜单名称',
-   description          varchar(256) comment '功能描述',
-   is_public            bit comment '是否是公开菜单',
-   path                 varchar(256) comment '对应路由path',
-   component            varchar(256) comment '对应路由组件component',
-   is_enable            bit comment '是否启用',
-   sort_value           int comment '排序',
-   icon                 varchar(256) comment '菜单图标',
-   group_               varchar(64) comment '菜单分组',
-   pratent_id           bigint comment '父级菜单ID',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   update_user          bigint comment '更新人ID',
-   update_time          datetime comment '更新时间',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_role
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_role` (`id`, `name`, `description`, `admin_count`, `create_time`, `status`, `sort`) VALUES (1, '商品管理员', '只能查看及操作商品', 0, '2020-02-03 16:50:37', 1, 0);
+INSERT INTO `ums_role` (`id`, `name`, `description`, `admin_count`, `create_time`, `status`, `sort`) VALUES (2, '订单管理员', '只能查看及操作订单', 0, '2018-09-30 15:53:45', 1, 0);
+INSERT INTO `ums_role` (`id`, `name`, `description`, `admin_count`, `create_time`, `status`, `sort`) VALUES (5, '超级管理员', '拥有所有查看和操作功能', 0, '2020-02-02 15:11:05', 1, 0);
+COMMIT;
 
-alter table ums_menu comment '菜单表';
+-- ----------------------------
+-- Table structure for ums_role_menu_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_role_menu_relation`;
+CREATE TABLE `ums_role_menu_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
+  `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb3 COMMENT='后台角色菜单关系表';
 
-/*==============================================================*/
-/* Table: ums_parameter                                         */
-/*==============================================================*/
-create table ums_parameter
-(
-   id                   bigint not null comment '主键',
-   name                 varchar(64) comment '字段名',
-   value                varchar(256) comment '字段值',
-   type                 varchar(64) comment '字段类型',
-   description          varchar(256) comment '规则描述',
-   status               bit comment '是否启用状态',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   update_user          bigint comment '更新人ID',
-   update_time          datetime comment '更新时间',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_role_menu_relation
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (33, 1, 1);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (34, 1, 2);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (35, 1, 3);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (36, 1, 4);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (37, 1, 5);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (38, 1, 6);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (53, 2, 7);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (54, 2, 8);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (55, 2, 9);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (56, 2, 10);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (57, 2, 11);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (72, 5, 1);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (73, 5, 2);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (74, 5, 3);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (75, 5, 4);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (76, 5, 5);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (77, 5, 6);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (78, 5, 7);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (79, 5, 8);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (80, 5, 9);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (81, 5, 10);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (82, 5, 11);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (83, 5, 12);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (84, 5, 13);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (85, 5, 14);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (86, 5, 16);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (87, 5, 17);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (88, 5, 18);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (89, 5, 19);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (90, 5, 20);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (91, 5, 21);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (92, 5, 22);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (93, 5, 23);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (94, 5, 24);
+INSERT INTO `ums_role_menu_relation` (`id`, `role_id`, `menu_id`) VALUES (95, 5, 25);
+COMMIT;
 
-alter table ums_parameter comment '规则属性表';
+-- ----------------------------
+-- Table structure for ums_role_permission_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_role_permission_relation`;
+CREATE TABLE `ums_role_permission_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) DEFAULT NULL,
+  `permission_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户角色和权限关系表';
 
-/*==============================================================*/
-/* Table: ums_resource                                          */
-/*==============================================================*/
-create table ums_resource
-(
-   id                   bigint not null comment '主键',
-   code                 varchar(64) comment '资源编码',
-   name                 varchar(64) comment '接口名称',
-   menu_id              bigint comment '菜单ID',
-   method               varchar(256) comment 'HTTP请求方式',
-   url                  varchar(256) comment '接口请求url',
-   description          varchar(256) comment '接口描述',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   update_user          bigint comment '更新人ID',
-   update_time          datetime comment '更新时间',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_role_permission_relation
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (1, 1, 1);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (2, 1, 2);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (3, 1, 3);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (4, 1, 7);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (5, 1, 8);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (6, 2, 4);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (7, 2, 9);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (8, 2, 10);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (9, 2, 11);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (10, 3, 5);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (11, 3, 12);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (12, 3, 13);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (13, 3, 14);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (14, 4, 6);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (15, 4, 15);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (16, 4, 16);
+INSERT INTO `ums_role_permission_relation` (`id`, `role_id`, `permission_id`) VALUES (17, 4, 17);
+COMMIT;
 
-alter table ums_resource comment '资源表';
+-- ----------------------------
+-- Table structure for ums_role_resource_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `ums_role_resource_relation`;
+CREATE TABLE `ums_role_resource_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
+  `resource_id` bigint(20) DEFAULT NULL COMMENT '资源ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb3 COMMENT='后台角色资源关系表';
 
-/*==============================================================*/
-/* Table: ums_role                                              */
-/*==============================================================*/
-create table ums_role
-(
-   id                   bigint not null comment '主键',
-   code                 varchar(64) comment '角色编码',
-   name                 varchar(64) comment '角色名称',
-   description          varchar(256) comment '角色描述',
-   status               bit comment '是否启用状态',
-   readonly             bit comment '是否内置角色',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   update_user          bigint comment '更新人ID',
-   update_time          datetime comment '更新时间',
-   primary key (id)
-);
+-- ----------------------------
+-- Records of ums_role_resource_relation
+-- ----------------------------
+BEGIN;
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (103, 2, 8);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (104, 2, 9);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (105, 2, 10);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (106, 2, 11);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (107, 2, 12);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (142, 5, 1);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (143, 5, 2);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (144, 5, 3);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (145, 5, 4);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (146, 5, 5);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (147, 5, 6);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (148, 5, 8);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (149, 5, 9);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (150, 5, 10);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (151, 5, 11);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (152, 5, 12);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (153, 5, 13);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (154, 5, 14);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (155, 5, 15);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (156, 5, 16);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (157, 5, 17);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (158, 5, 18);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (159, 5, 19);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (160, 5, 20);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (161, 5, 21);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (162, 5, 22);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (163, 5, 23);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (164, 5, 24);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (165, 5, 25);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (166, 5, 26);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (167, 5, 27);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (168, 5, 28);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (169, 5, 29);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (170, 1, 1);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (171, 1, 2);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (172, 1, 3);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (173, 1, 4);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (174, 1, 5);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (175, 1, 6);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (176, 1, 23);
+INSERT INTO `ums_role_resource_relation` (`id`, `role_id`, `resource_id`) VALUES (177, 1, 24);
+COMMIT;
 
-alter table ums_role comment ' 角色表';
-
-/*==============================================================*/
-/* Table: ums_role_authority                                    */
-/*==============================================================*/
-create table ums_role_authority
-(
-   id                   bigint not null comment '主键',
-   role_id              bigint comment '角色ID',
-   authority_id         bigint comment '权限ID',
-   authority_type       varchar(20) comment '权限类型 MUNE:菜单  RESOURCE:资源',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   primary key (id)
-);
-
-alter table ums_role_authority comment '角色权限关系表';
-
-/*==============================================================*/
-/* Table: ums_rule                                              */
-/*==============================================================*/
-create table ums_rule
-(
-   id                   bigint not null comment '主键',
-   name                 varchar(64) comment '规则编码',
-   description          varchar(256) comment '规则描述',
-   risk_control         tinyint comment '风险控制(是否拒绝：1是 0否)',
-   object               tinyint comment '对象（1个人客户、2 企业客户）',
-   status               bit comment '是否启用状态',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   update_user          bigint comment '更新人ID',
-   update_time          datetime comment '更新时间',
-   primary key (id)
-);
-
-alter table ums_rule comment ' 规则表';
-
-/*==============================================================*/
-/* Table: ums_rule_parameter                                    */
-/*==============================================================*/
-create table ums_rule_parameter
-(
-   id                   bigint not null comment '主键',
-   rule_id              bigint comment '规则主键',
-   parameter_id         bigint comment '属性主键',
-   create_user          bigint comment '创建人ID',
-   create_time          datetime comment '创建时间',
-   primary key (id)
-);
-
-alter table ums_rule_parameter comment '规则配置表';
-
-/*==============================================================*/
-/* Table: ums_user                                              */
-/*==============================================================*/
-create table ums_user
-(
-   id                   bigint not null auto_increment,
-   username             varchar(64) comment '用户名',
-   password             varchar(64) comment '密码',
-   nickname             varchar(64) comment '昵称',
-   identity_no          varchar(64) comment '身份证号',
-   phone                varchar(64) comment '手机号码',
-   status               int(1) comment '帐号启用状态:0->禁用；1->启用',
-   icon                 varchar(500) comment '头像',
-   gender               int(1) comment '性别：0->未知；1->男；2->女',
-   birthday             date comment '生日',
-   city                 varchar(64) comment '所在城市',
-   work_status          char(10) comment '工作状态：0->在业；1 ->无业',
-   job                  varchar(100) comment '职业',
-   personalized_signature varchar(200) comment '个性签名',
-   source_type          int(1) comment '用户来源',
-   create_time          datetime comment '注册时间',
-   update_time          datetime comment '更新时间（操作数据时被动更新）',
-   is_delete            tinyint comment '逻辑删除（1 表示删除，0表示未删除）',
-   primary key (id)
-);
-
-alter table ums_user comment '客户表(逻辑删除)';
-
-alter table ums_admin_role add constraint FK_pk_admin_id foreign key (admin_id)
-      references ums_admin (id) on delete restrict on update restrict;
-
-alter table ums_admin_role add constraint FK_pk_role_id foreign key (role_id)
-      references ums_role (id) on delete restrict on update restrict;
-
-alter table ums_common_login_log add constraint FK_pk_log_admin_id foreign key (admin_id)
-      references ums_admin (id) on delete restrict on update restrict;
-
-alter table ums_role_authority add constraint FK_PK_RESOURCE_ID foreign key (authority_id)
-      references ums_resource (id) on delete restrict on update restrict;
-
-alter table ums_role_authority add constraint FK_Reference_4 foreign key (role_id)
-      references ums_role (id) on delete restrict on update restrict;
-
-alter table ums_role_authority add constraint FK_pk_menu_id foreign key (authority_id)
-      references ums_menu (id) on delete restrict on update restrict;
-
-alter table ums_rule_parameter add constraint FK_pk_parameter foreign key (parameter_id)
-      references ums_parameter (id) on delete restrict on update restrict;
-
-alter table ums_rule_parameter add constraint FK_pl_rule_id foreign key (rule_id)
-      references ums_rule (id) on delete restrict on update restrict;
-
+SET FOREIGN_KEY_CHECKS = 1;

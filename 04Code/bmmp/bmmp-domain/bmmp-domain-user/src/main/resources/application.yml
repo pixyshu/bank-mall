@@ -1,0 +1,34 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: domain-user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: @pom.nacos.ip@:@pom.nacos.port@
+        namespace: @pom.nacos.namespace@
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: @datasource.username@
+    password: @datasource.password@
+    url: jdbc:mysql://@datasource.host@:@datasource.port@/@datasource.table@
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password:  # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+
+redis:
+  database: mall
+  key:
+    admin: 'ums:admin'
+  expire:
+    common: 86400 # 24小时
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml

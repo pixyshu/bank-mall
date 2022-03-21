@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suue.bmmp.dao.ProductDao">
+
+    <resultMap type="com.suue.bmmp.entity.Product" id="ProductMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="pic" column="pic" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="firstPurchaseMoney" column="first_purchase_money" jdbcType="NUMERIC"/>
+        <result property="addPurchaseMoney" column="add_purchase_money" jdbcType="NUMERIC"/>
+        <result property="maxPurchaseMoney" column="max_purchase_money" jdbcType="NUMERIC"/>
+        <result property="rate" column="rate" jdbcType="NUMERIC"/>
+        <result property="sumSaleMoney" column="sum_sale_money" jdbcType="NUMERIC"/>
+        <result property="isPublish" column="is_publish" jdbcType="INTEGER"/>
+        <result property="isNew" column="is_new" jdbcType="INTEGER"/>
+        <result property="isRecommand" column="is_recommand" jdbcType="INTEGER"/>
+        <result property="serviceId" column="service_id" jdbcType="INTEGER"/>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+        <result property="promotionStartTime" column="promotion_start_time" jdbcType="TIMESTAMP"/>
+        <result property="promotionEndTime" column="promotion_end_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="purchaseTimeLong" column="purchase_time_long" jdbcType="VARCHAR"/>
+        <result property="riskLevel" column="risk_level" jdbcType="VARCHAR"/>
+        <result property="onShelfTime" column="on_shelf_time" jdbcType="TIMESTAMP"/>
+        <result property="offShelfTime" column="off_shelf_time" jdbcType="TIMESTAMP"/>
+        <result property="nav" column="nav" jdbcType="NUMERIC"/>
+        <result property="totalRate" column="total_rate" jdbcType="NUMERIC"/>
+        <result property="deleteTime" column="delete_time" jdbcType="TIMESTAMP"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="detailId" column="detail_id" jdbcType="INTEGER"/>
+        <result property="advertiseId" column="advertise_id" jdbcType="INTEGER"/>
+        <result property="industryId" column="industry_id" jdbcType="INTEGER"/>
+        <result property="timeCycleId" column="time_cycle_id" jdbcType="INTEGER"/>
+        <result property="isuueId" column="isuue_id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProductMap">
+        select
+          id, name, pic, description, code, first_purchase_money, add_purchase_money, max_purchase_money, rate, sum_sale_money, is_publish, is_new, is_recommand, service_id, is_delete, promotion_start_time, promotion_end_time, create_time, update_time, type_id, purchase_time_long, risk_level, on_shelf_time, off_shelf_time, nav, total_rate, delete_time, category_id, detail_id, advertise_id, industry_id, time_cycle_id, isuue_id, title
+        from pms_product
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from pms_product
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="pic != null and pic != ''">
+                and pic = #{pic}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="firstPurchaseMoney != null">
+                and first_purchase_money = #{firstPurchaseMoney}
+            </if>
+            <if test="addPurchaseMoney != null">
+                and add_purchase_money = #{addPurchaseMoney}
+            </if>
+            <if test="maxPurchaseMoney != null">
+                and max_purchase_money = #{maxPurchaseMoney}
+            </if>
+            <if test="rate != null">
+                and rate = #{rate}
+            </if>
+            <if test="sumSaleMoney != null">
+                and sum_sale_money = #{sumSaleMoney}
+            </if>
+            <if test="isPublish != null">
+                and is_publish = #{isPublish}
+            </if>
+            <if test="isNew != null">
+                and is_new = #{isNew}
+            </if>
+            <if test="isRecommand != null">
+                and is_recommand = #{isRecommand}
+            </if>
+            <if test="serviceId != null">
+                and service_id = #{serviceId}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="promotionStartTime != null">
+                and promotion_start_time = #{promotionStartTime}
+            </if>
+            <if test="promotionEndTime != null">
+                and promotion_end_time = #{promotionEndTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="purchaseTimeLong != null and purchaseTimeLong != ''">
+                and purchase_time_long = #{purchaseTimeLong}
+            </if>
+            <if test="riskLevel != null and riskLevel != ''">
+                and risk_level = #{riskLevel}
+            </if>
+            <if test="onShelfTime != null">
+                and on_shelf_time = #{onShelfTime}
+            </if>
+            <if test="offShelfTime != null">
+                and off_shelf_time = #{offShelfTime}
+            </if>
+            <if test="nav != null">
+                and nav = #{nav}
+            </if>
+            <if test="totalRate != null">
+                and total_rate = #{totalRate}
+            </if>
+            <if test="deleteTime != null">
+                and delete_time = #{deleteTime}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="detailId != null">
+                and detail_id = #{detailId}
+            </if>
+            <if test="advertiseId != null">
+                and advertise_id = #{advertiseId}
+            </if>
+            <if test="industryId != null">
+                and industry_id = #{industryId}
+            </if>
+            <if test="timeCycleId != null">
+                and time_cycle_id = #{timeCycleId}
+            </if>
+            <if test="isuueId != null">
+                and isuue_id = #{isuueId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into pms_product(name, pic, description, code, first_purchase_money, add_purchase_money, max_purchase_money, rate, sum_sale_money, is_publish, is_new, is_recommand, service_id, is_delete, promotion_start_time, promotion_end_time, create_time, update_time, type_id, purchase_time_long, risk_level, on_shelf_time, off_shelf_time, nav, total_rate, delete_time, category_id, detail_id, advertise_id, industry_id, time_cycle_id, isuue_id, title)
+        values (#{name}, #{pic}, #{description}, #{code}, #{firstPurchaseMoney}, #{addPurchaseMoney}, #{maxPurchaseMoney}, #{rate}, #{sumSaleMoney}, #{isPublish}, #{isNew}, #{isRecommand}, #{serviceId}, #{isDelete}, #{promotionStartTime}, #{promotionEndTime}, #{createTime}, #{updateTime}, #{typeId}, #{purchaseTimeLong}, #{riskLevel}, #{onShelfTime}, #{offShelfTime}, #{nav}, #{totalRate}, #{deleteTime}, #{categoryId}, #{detailId}, #{advertiseId}, #{industryId}, #{timeCycleId}, #{isuueId}, #{title})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pms_product(name, pic, description, code, first_purchase_money, add_purchase_money, max_purchase_money, rate, sum_sale_money, is_publish, is_new, is_recommand, service_id, is_delete, promotion_start_time, promotion_end_time, create_time, update_time, type_id, purchase_time_long, risk_level, on_shelf_time, off_shelf_time, nav, total_rate, delete_time, category_id, detail_id, advertise_id, industry_id, time_cycle_id, isuue_id, title)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}, #{entity.pic}, #{entity.description}, #{entity.code}, #{entity.firstPurchaseMoney}, #{entity.addPurchaseMoney}, #{entity.maxPurchaseMoney}, #{entity.rate}, #{entity.sumSaleMoney}, #{entity.isPublish}, #{entity.isNew}, #{entity.isRecommand}, #{entity.serviceId}, #{entity.isDelete}, #{entity.promotionStartTime}, #{entity.promotionEndTime}, #{entity.createTime}, #{entity.updateTime}, #{entity.typeId}, #{entity.purchaseTimeLong}, #{entity.riskLevel}, #{entity.onShelfTime}, #{entity.offShelfTime}, #{entity.nav}, #{entity.totalRate}, #{entity.deleteTime}, #{entity.categoryId}, #{entity.detailId}, #{entity.advertiseId}, #{entity.industryId}, #{entity.timeCycleId}, #{entity.isuueId}, #{entity.title})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pms_product(name, pic, description, code, first_purchase_money, add_purchase_money, max_purchase_money, rate, sum_sale_money, is_publish, is_new, is_recommand, service_id, is_delete, promotion_start_time, promotion_end_time, create_time, update_time, type_id, purchase_time_long, risk_level, on_shelf_time, off_shelf_time, nav, total_rate, delete_time, category_id, detail_id, advertise_id, industry_id, time_cycle_id, isuue_id, title)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.pic}, #{entity.description}, #{entity.code}, #{entity.firstPurchaseMoney}, #{entity.addPurchaseMoney}, #{entity.maxPurchaseMoney}, #{entity.rate}, #{entity.sumSaleMoney}, #{entity.isPublish}, #{entity.isNew}, #{entity.isRecommand}, #{entity.serviceId}, #{entity.isDelete}, #{entity.promotionStartTime}, #{entity.promotionEndTime}, #{entity.createTime}, #{entity.updateTime}, #{entity.typeId}, #{entity.purchaseTimeLong}, #{entity.riskLevel}, #{entity.onShelfTime}, #{entity.offShelfTime}, #{entity.nav}, #{entity.totalRate}, #{entity.deleteTime}, #{entity.categoryId}, #{entity.detailId}, #{entity.advertiseId}, #{entity.industryId}, #{entity.timeCycleId}, #{entity.isuueId}, #{entity.title})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        pic = values(pic),
+        description = values(description),
+        code = values(code),
+        first_purchase_money = values(first_purchase_money),
+        add_purchase_money = values(add_purchase_money),
+        max_purchase_money = values(max_purchase_money),
+        rate = values(rate),
+        sum_sale_money = values(sum_sale_money),
+        is_publish = values(is_publish),
+        is_new = values(is_new),
+        is_recommand = values(is_recommand),
+        service_id = values(service_id),
+        is_delete = values(is_delete),
+        promotion_start_time = values(promotion_start_time),
+        promotion_end_time = values(promotion_end_time),
+        create_time = values(create_time),
+        update_time = values(update_time),
+        type_id = values(type_id),
+        purchase_time_long = values(purchase_time_long),
+        risk_level = values(risk_level),
+        on_shelf_time = values(on_shelf_time),
+        off_shelf_time = values(off_shelf_time),
+        nav = values(nav),
+        total_rate = values(total_rate),
+        delete_time = values(delete_time),
+        category_id = values(category_id),
+        detail_id = values(detail_id),
+        advertise_id = values(advertise_id),
+        industry_id = values(industry_id),
+        time_cycle_id = values(time_cycle_id),
+        isuue_id = values(isuue_id),
+        title = values(title)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update pms_product
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="pic != null and pic != ''">
+                pic = #{pic},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="firstPurchaseMoney != null">
+                first_purchase_money = #{firstPurchaseMoney},
+            </if>
+            <if test="addPurchaseMoney != null">
+                add_purchase_money = #{addPurchaseMoney},
+            </if>
+            <if test="maxPurchaseMoney != null">
+                max_purchase_money = #{maxPurchaseMoney},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="sumSaleMoney != null">
+                sum_sale_money = #{sumSaleMoney},
+            </if>
+            <if test="isPublish != null">
+                is_publish = #{isPublish},
+            </if>
+            <if test="isNew != null">
+                is_new = #{isNew},
+            </if>
+            <if test="isRecommand != null">
+                is_recommand = #{isRecommand},
+            </if>
+            <if test="serviceId != null">
+                service_id = #{serviceId},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+            <if test="promotionStartTime != null">
+                promotion_start_time = #{promotionStartTime},
+            </if>
+            <if test="promotionEndTime != null">
+                promotion_end_time = #{promotionEndTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="purchaseTimeLong != null and purchaseTimeLong != ''">
+                purchase_time_long = #{purchaseTimeLong},
+            </if>
+            <if test="riskLevel != null and riskLevel != ''">
+                risk_level = #{riskLevel},
+            </if>
+            <if test="onShelfTime != null">
+                on_shelf_time = #{onShelfTime},
+            </if>
+            <if test="offShelfTime != null">
+                off_shelf_time = #{offShelfTime},
+            </if>
+            <if test="nav != null">
+                nav = #{nav},
+            </if>
+            <if test="totalRate != null">
+                total_rate = #{totalRate},
+            </if>
+            <if test="deleteTime != null">
+                delete_time = #{deleteTime},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="detailId != null">
+                detail_id = #{detailId},
+            </if>
+            <if test="advertiseId != null">
+                advertise_id = #{advertiseId},
+            </if>
+            <if test="industryId != null">
+                industry_id = #{industryId},
+            </if>
+            <if test="timeCycleId != null">
+                time_cycle_id = #{timeCycleId},
+            </if>
+            <if test="isuueId != null">
+                isuue_id = #{isuueId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from pms_product where id = #{id}
+    </delete>
+
+<!--条件查询所有数据-->
+    <select id="queryAll" resultMap="ProductMap">
+        select
+          id, name, pic, description, code, first_purchase_money, add_purchase_money, max_purchase_money, rate, sum_sale_money, is_publish, is_new, is_recommand, service_id, is_delete, promotion_start_time, promotion_end_time, create_time, update_time, type_id, purchase_time_long, risk_level, on_shelf_time, off_shelf_time, nav, total_rate, delete_time, category_id, detail_id, advertise_id, industry_id, time_cycle_id, isuue_id, title
+        from pms_product
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="pic != null and pic != ''">
+                and pic = #{pic}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="firstPurchaseMoney != null">
+                and first_purchase_money = #{firstPurchaseMoney}
+            </if>
+            <if test="addPurchaseMoney != null">
+                and add_purchase_money = #{addPurchaseMoney}
+            </if>
+            <if test="maxPurchaseMoney != null">
+                and max_purchase_money = #{maxPurchaseMoney}
+            </if>
+            <if test="rate != null">
+                and rate = #{rate}
+            </if>
+            <if test="sumSaleMoney != null">
+                and sum_sale_money = #{sumSaleMoney}
+            </if>
+            <if test="isPublish != null">
+                and is_publish = #{isPublish}
+            </if>
+            <if test="isNew != null">
+                and is_new = #{isNew}
+            </if>
+            <if test="isRecommand != null">
+                and is_recommand = #{isRecommand}
+            </if>
+            <if test="serviceId != null">
+                and service_id = #{serviceId}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="promotionStartTime != null">
+                and promotion_start_time = #{promotionStartTime}
+            </if>
+            <if test="promotionEndTime != null">
+                and promotion_end_time = #{promotionEndTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="purchaseTimeLong != null and purchaseTimeLong != ''">
+                and purchase_time_long = #{purchaseTimeLong}
+            </if>
+            <if test="riskLevel != null and riskLevel != ''">
+                and risk_level = #{riskLevel}
+            </if>
+            <if test="onShelfTime != null">
+                and on_shelf_time = #{onShelfTime}
+            </if>
+            <if test="offShelfTime != null">
+                and off_shelf_time = #{offShelfTime}
+            </if>
+            <if test="nav != null">
+                and nav = #{nav}
+            </if>
+            <if test="totalRate != null">
+                and total_rate = #{totalRate}
+            </if>
+            <if test="deleteTime != null">
+                and delete_time = #{deleteTime}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="detailId != null">
+                and detail_id = #{detailId}
+            </if>
+            <if test="advertiseId != null">
+                and advertise_id = #{advertiseId}
+            </if>
+            <if test="industryId != null">
+                and industry_id = #{industryId}
+            </if>
+            <if test="timeCycleId != null">
+                and time_cycle_id = #{timeCycleId}
+            </if>
+            <if test="isuueId != null">
+                and isuue_id = #{isuueId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+        </where>
+    </select>
+</mapper>
+
+

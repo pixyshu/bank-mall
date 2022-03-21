@@ -1,0 +1,21 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: domain-user-demo
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: @pom.nacos.ip@:@pom.nacos.port@
+#        namespace: @pom.nacos.namespace@
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://101.35.51.48:3306/bank_mall?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
