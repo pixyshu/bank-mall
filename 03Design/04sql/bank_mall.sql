@@ -1,21 +1,323 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql
+ Source Server         : 101.35.51.48
  Source Server Type    : MySQL
- Source Server Version : 100604
- Source Host           : localhost:3306
- Source Schema         : mall
+ Source Server Version : 50737
+ Source Host           : 101.35.51.48:3306
+ Source Schema         : bank_mall
 
  Target Server Type    : MySQL
- Target Server Version : 100604
+ Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 21/03/2022 19:13:47
+ Date: 21/03/2022 19:18:09
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for pms_product
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product`;
+CREATE TABLE `pms_product` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品名称',
+  `title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '副标题',
+  `pic` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '图片',
+  `description` text COLLATE utf8mb4_bin COMMENT '产品介绍',
+  `code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品代码',
+  `first_purchase_money` decimal(10,2) DEFAULT NULL COMMENT '首笔起点金额',
+  `add_purchase_money` decimal(10,2) DEFAULT NULL COMMENT '递增起点金额',
+  `max_purchase_money` decimal(10,2) DEFAULT NULL COMMENT '单笔最高金额',
+  `rate` decimal(10,2) DEFAULT NULL COMMENT '年利率',
+  `sum_sale_money` decimal(10,2) DEFAULT NULL COMMENT '总共售卖',
+  `is_publish` int(1) DEFAULT NULL COMMENT '上架状态：0->下架；1->上架',
+  `is_new` int(1) DEFAULT NULL COMMENT '新品状态:0->不是新品；1->新品',
+  `is_recommand` int(1) DEFAULT NULL COMMENT '推荐状态；0->不推荐；1->推荐',
+  `service_id` int(1) DEFAULT NULL COMMENT '以逗号分隔产品服务：1 保本保息，2 当日起息，3快存快取',
+  `is_delete` tinyint(4) DEFAULT NULL COMMENT '逻辑删除（1 表示删除，0表示未删除）',
+  `promotion_start_time` datetime DEFAULT NULL COMMENT '促销开始时间',
+  `promotion_end_time` datetime DEFAULT NULL COMMENT '促销结束时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间（添加数据时主动创建）',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间（操作数据时被动更新）',
+  `type_id` bigint(20) DEFAULT NULL COMMENT '产品分类ID（活期、定期、债券基金、偏债基金、FOF基金）',
+  `purchase_time_long` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品持有时常',
+  `risk_level` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '风险等级',
+  `on_shelf_time` datetime DEFAULT NULL COMMENT '上架时间',
+  `off_shelf_time` datetime DEFAULT NULL COMMENT '下架时间',
+  `nav` decimal(10,2) DEFAULT NULL COMMENT '单位净值',
+  `total_rate` decimal(10,2) DEFAULT NULL COMMENT '发行到今天的总利率',
+  `delete_time` datetime DEFAULT NULL COMMENT '删除产品时间',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '产品分类ID',
+  `detail_id` bigint(20) DEFAULT NULL COMMENT '产品详情ID',
+  `advertise_id` bigint(20) DEFAULT NULL COMMENT '产品广告ID',
+  `industry_id` bigint(20) DEFAULT NULL COMMENT '行业ID',
+  `time_cycle_id` bigint(20) DEFAULT NULL COMMENT '产品周期ID',
+  `isuue_id` bigint(20) DEFAULT NULL COMMENT '发行ID',
+  PRIMARY KEY (`id`),
+  KEY `FK_Reference_1` (`category_id`),
+  KEY `FK_Reference_2` (`detail_id`),
+  CONSTRAINT `FK_Reference_1` FOREIGN KEY (`category_id`) REFERENCES `pms_product_category` (`id`),
+  CONSTRAINT `FK_Reference_2` FOREIGN KEY (`detail_id`) REFERENCES `pms_product_detail` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT=' 理财产品';
+
+-- ----------------------------
+-- Records of pms_product
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_advertise
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_advertise`;
+CREATE TABLE `pms_product_advertise` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `info` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '广告宣传语(管理规模超万亿、超100万人持有、金选标准)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='产品广告标签';
+
+-- ----------------------------
+-- Records of pms_product_advertise
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_category
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_category`;
+CREATE TABLE `pms_product_category` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品类型名称',
+  `description` text COLLATE utf8mb4_bin COMMENT '描述',
+  `is_show` int(1) DEFAULT NULL COMMENT '显示状态：0->不显示；1->显示',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='产品分类';
+
+-- ----------------------------
+-- Records of pms_product_category
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_detail`;
+CREATE TABLE `pms_product_detail` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `currency` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品币种',
+  `invest_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '投资性质',
+  `sale_area` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '销售地区',
+  `income_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '收益类型',
+  `rasie_way` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '募集方式',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间（添加数据时主动创建）',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间（操作数据时被动更新）',
+  `is_delete` tinyint(4) DEFAULT NULL COMMENT '逻辑删除（1 表示删除，0表示未删除）',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='产品详情表';
+
+-- ----------------------------
+-- Records of pms_product_detail
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_industry
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_industry`;
+CREATE TABLE `pms_product_industry` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '行业名称',
+  `code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '行业代码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='产品行业';
+
+-- ----------------------------
+-- Records of pms_product_industry
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_issue
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_issue`;
+CREATE TABLE `pms_product_issue` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '发行机构名称',
+  `code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '发行机构代码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='发行机构';
+
+-- ----------------------------
+-- Records of pms_product_issue
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_rule`;
+CREATE TABLE `pms_product_rule` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `info` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品规则信息',
+  `code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '产品规则信息代号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='产品交易规则表';
+
+-- ----------------------------
+-- Records of pms_product_rule
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pms_product_time_cycle
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_product_time_cycle`;
+CREATE TABLE `pms_product_time_cycle` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` bigint(64) DEFAULT NULL COMMENT '产品周期时长',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='产品周期';
+
+-- ----------------------------
+-- Records of pms_product_time_cycle
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sms_flash_promotion
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_flash_promotion`;
+CREATE TABLE `sms_flash_promotion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '活动标题',
+  `start_date` date DEFAULT NULL COMMENT '开始日期',
+  `end_date` date DEFAULT NULL COMMENT '结束日期',
+  `status` int(1) DEFAULT NULL COMMENT '上下线状态',
+  `create_time` datetime DEFAULT NULL COMMENT '秒杀时间段名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='限时购表';
+
+-- ----------------------------
+-- Records of sms_flash_promotion
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sms_flash_promotion_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_flash_promotion_log`;
+CREATE TABLE `sms_flash_promotion_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `member_email` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '会员邮件',
+  `product_name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '商品名字',
+  `subscribe_time` datetime DEFAULT NULL COMMENT '会员订阅时间',
+  `send_time` datetime DEFAULT NULL COMMENT '发送时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='限时购通知记录';
+
+-- ----------------------------
+-- Records of sms_flash_promotion_log
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sms_flash_promotion_product_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_flash_promotion_product_relation`;
+CREATE TABLE `sms_flash_promotion_product_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `flash_promotion_id` bigint(20) DEFAULT NULL COMMENT '活动编号',
+  `flash_promotion_session_id` bigint(20) DEFAULT NULL COMMENT '编号',
+  `product_id` bigint(20) DEFAULT NULL COMMENT '产品编号',
+  `flash_promotion_price` decimal(10,2) DEFAULT NULL COMMENT '限时购价格',
+  `flash_promotion_count` int(11) DEFAULT NULL COMMENT '限时购数量',
+  `flash_promotion_limit` int(11) DEFAULT NULL COMMENT '每人限购数量',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`),
+  KEY `FK_Reference_77` (`flash_promotion_id`),
+  KEY `FK_Reference_78` (`flash_promotion_session_id`),
+  CONSTRAINT `FK_Reference_77` FOREIGN KEY (`flash_promotion_id`) REFERENCES `sms_flash_promotion` (`id`),
+  CONSTRAINT `FK_Reference_78` FOREIGN KEY (`flash_promotion_session_id`) REFERENCES `sms_flash_promotion_session` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='商品限时购与商品关系表';
+
+-- ----------------------------
+-- Records of sms_flash_promotion_product_relation
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sms_flash_promotion_session
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_flash_promotion_session`;
+CREATE TABLE `sms_flash_promotion_session` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '场次名称',
+  `start_time` time DEFAULT NULL COMMENT '每日开始时间',
+  `end_time` time DEFAULT NULL COMMENT '每日结束时间',
+  `status` int(1) DEFAULT NULL COMMENT '启用状态：0->不启用；1->启用',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='限时购场次表';
+
+-- ----------------------------
+-- Records of sms_flash_promotion_session
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sms_home_new_product
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_home_new_product`;
+CREATE TABLE `sms_home_new_product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL,
+  `product_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
+  `recommend_status` int(1) DEFAULT NULL,
+  `sort` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='新鲜好物表';
+
+-- ----------------------------
+-- Records of sms_home_new_product
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sms_home_recommend_product
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_home_recommend_product`;
+CREATE TABLE `sms_home_recommend_product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL,
+  `product_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
+  `recommend_status` int(1) DEFAULT NULL,
+  `sort` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='人气推荐商品表';
+
+-- ----------------------------
+-- Records of sms_home_recommend_product
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for ums_admin
@@ -31,9 +333,9 @@ CREATE TABLE `ums_admin` (
   `note` varchar(500) DEFAULT NULL COMMENT '备注信息',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `login_time` datetime DEFAULT NULL COMMENT '最后登录时间',
-  `status` int(1) DEFAULT 1 COMMENT '帐号启用状态：0->禁用；1->启用',
+  `status` int(1) DEFAULT '1' COMMENT '帐号启用状态：0->禁用；1->启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
 
 -- ----------------------------
 -- Records of ums_admin
@@ -60,7 +362,7 @@ CREATE TABLE `ums_admin_login_log` (
   `address` varchar(100) DEFAULT NULL,
   `user_agent` varchar(100) DEFAULT NULL COMMENT '浏览器登录类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8 COMMENT='后台用户登录日志表';
 
 -- ----------------------------
 -- Records of ums_admin_login_log
@@ -78,7 +380,7 @@ CREATE TABLE `ums_admin_permission_relation` (
   `permission_id` bigint(20) DEFAULT NULL,
   `type` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='后台用户和权限关系表(除角色中定义的权限以外的加减权限)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台用户和权限关系表(除角色中定义的权限以外的加减权限)';
 
 -- ----------------------------
 -- Records of ums_admin_permission_relation
@@ -95,7 +397,7 @@ CREATE TABLE `ums_admin_role_relation` (
   `admin_id` bigint(20) DEFAULT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户和角色关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
 
 -- ----------------------------
 -- Records of ums_admin_role_relation
@@ -123,7 +425,7 @@ CREATE TABLE `ums_menu` (
   `icon` varchar(200) DEFAULT NULL COMMENT '前端图标',
   `hidden` int(1) DEFAULT NULL COMMENT '前端隐藏',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of ums_menu
@@ -171,7 +473,7 @@ CREATE TABLE `ums_permission` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='后台用户权限表';
 
 -- ----------------------------
 -- Records of ums_permission
@@ -209,7 +511,7 @@ CREATE TABLE `ums_resource` (
   `description` varchar(500) DEFAULT NULL COMMENT '描述',
   `category_id` bigint(20) DEFAULT NULL COMMENT '资源分类ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COMMENT='后台资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='后台资源表';
 
 -- ----------------------------
 -- Records of ums_resource
@@ -255,7 +557,7 @@ CREATE TABLE `ums_resource_category` (
   `name` varchar(200) DEFAULT NULL COMMENT '分类名称',
   `sort` int(4) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COMMENT='资源分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='资源分类表';
 
 -- ----------------------------
 -- Records of ums_resource_category
@@ -279,10 +581,10 @@ CREATE TABLE `ums_role` (
   `description` varchar(500) DEFAULT NULL COMMENT '描述',
   `admin_count` int(11) DEFAULT NULL COMMENT '后台用户数量',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `status` int(1) DEFAULT 1 COMMENT '启用状态：0->禁用；1->启用',
-  `sort` int(11) DEFAULT 0,
+  `status` int(1) DEFAULT '1' COMMENT '启用状态：0->禁用；1->启用',
+  `sort` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='后台用户角色表';
 
 -- ----------------------------
 -- Records of ums_role
@@ -302,7 +604,7 @@ CREATE TABLE `ums_role_menu_relation` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb3 COMMENT='后台角色菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COMMENT='后台角色菜单关系表';
 
 -- ----------------------------
 -- Records of ums_role_menu_relation
@@ -354,7 +656,7 @@ CREATE TABLE `ums_role_permission_relation` (
   `role_id` bigint(20) DEFAULT NULL,
   `permission_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 COMMENT='后台用户角色和权限关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='后台用户角色和权限关系表';
 
 -- ----------------------------
 -- Records of ums_role_permission_relation
@@ -388,7 +690,7 @@ CREATE TABLE `ums_role_resource_relation` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `resource_id` bigint(20) DEFAULT NULL COMMENT '资源ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb3 COMMENT='后台角色资源关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8 COMMENT='后台角色资源关系表';
 
 -- ----------------------------
 -- Records of ums_role_resource_relation
