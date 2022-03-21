@@ -28,12 +28,12 @@ bmmp            #聚合工程，用于聚合bmmp-common、bmmp-parent、bmmp-pla
 ├── bmmp-domain				 # 具体业务服务
 	├── bmmp-domain-demo				 # 权限服务父工程
 	├── bmmp-domain-user				 # 用户管理服务
-	├── bmmp-domain-XXX			 	   # 网关服务
+	├── bmmp-domain-XXX			 	   # XX服务
 ├── bmmp-parent				 # 依赖管理父项目
 └── bmmp-platform			 # 支撑服务
 	├── bmmp-gateway-authority		# 授权服务
 	├── bmmp-gateway-gateway		  # 网关服务
-	├── bmmp-gateway-XXX		 			# 网关服务
+	├── bmmp-gateway-XXX		 			# XX服务
 ```
 
 
