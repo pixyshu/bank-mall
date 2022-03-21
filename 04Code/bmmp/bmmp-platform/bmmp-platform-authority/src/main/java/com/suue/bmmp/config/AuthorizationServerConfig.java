@@ -42,17 +42,36 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private final JwtTokenEnhancer jwtTokenEnhancer;
 
+    /**
+     * 配置客户端详情服务
+     * 即谁可以访问服务
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("admin")
+                .withClient("admin-app")
                 .secret(passwordEncoder.encode("123456"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(3600)
-                .refreshTokenValiditySeconds(86400);
+                .accessTokenValiditySeconds(3600*24)
+                .refreshTokenValiditySeconds(3600*24*7)
+                .and()
+                .withClient("portal-app")
+                .secret(passwordEncoder.encode("123456"))
+                .scopes("all")
+                .authorizedGrantTypes("password", "refresh_token")
+                .accessTokenValiditySeconds(3600*24)
+                .refreshTokenValiditySeconds(3600*24*7);
     }
 
+    /**
+     * 配置访问令牌的端点和令牌服务
+     * 即如何发放令牌
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
@@ -60,12 +79,19 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         delegates.add(jwtTokenEnhancer);
         delegates.add(jwtAccessTokenConverter());
         enhancerChain.setTokenEnhancers(delegates); //配置JWT的内容增强器
+
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService) //配置加载用户信息的服务
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .tokenEnhancer(enhancerChain);
     }
 
+    /**
+     * 配置令牌端点的安全约束
+     *
+     * @param security
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients();
