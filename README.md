@@ -113,6 +113,10 @@ bmmp            #聚合工程，用于聚合bmmp-common、bmmp-parent、bmmp-pla
 1）将本地修改添加到本地版本库
 
 - `git add .`：添加本地有修改过的文件到暂存库
+- `git add 【directory/**】` : 提交某一文件下的文件
+- `git add 【file】`: 提交某一具体的文件
+
+> 推荐尽量精确提交
 
 - `git commit -m "新增/修改了XXX功能"` ：提到修改到本地版本库
 
