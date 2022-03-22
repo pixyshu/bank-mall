@@ -7,15 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bmmp-common" />
         <module name="bmmp-platform-gateway" />
-        <module name="bmmp-platform-authority" />
-        <module name="bmmp-domain-user" />
+        <module name="bmmp-common" />
         <module name="bmmp-domain-demo" />
+        <module name="bmmp-domain-user" />
+        <module name="bmmp-platform-authority" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="bmmp-common-api" target="1.8" />
+      <module name="bmmp-common-database" target="1.8" />
       <module name="bmmp-domain-administrator" target="1.8" />
+      <module name="bmmp-domain-demo (2)" target="1.8" />
       <module name="bmmp-domain-example" target="1.8" />
       <module name="bmmp-domain-security" target="1.8" />
       <module name="bmmp-platform-security" target="8" />
@@ -29,9 +32,12 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="bmmp-common" options="-parameters" />
+      <module name="bmmp-common-api" options="-parameters" />
+      <module name="bmmp-common-database" options="-parameters" />
       <module name="bmmp-domain" options="-parameters" />
       <module name="bmmp-domain-administrator" options="-parameters" />
       <module name="bmmp-domain-demo" options="-parameters" />
+      <module name="bmmp-domain-demo (2)" options="-parameters" />
       <module name="bmmp-domain-example" options="-parameters" />
       <module name="bmmp-domain-security" options="-parameters" />
       <module name="bmmp-domain-user" options="-parameters" />

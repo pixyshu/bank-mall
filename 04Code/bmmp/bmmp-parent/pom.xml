@@ -218,61 +218,14 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    <build>-->
-<!--        <finalName>${project.artifactId}</finalName>-->
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>src/main/resources</directory>-->
-<!--                <includes>-->
-<!--                    <include>**/*</include>-->
-<!--                </includes>-->
-<!--                <filtering>true</filtering>-->
-<!--            </resource>-->
-<!--        </resources>-->
-<!--        <pluginManagement>-->
-<!--            <plugins>-->
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.maven.plugins</groupId>-->
-<!--                    <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                    <version>${maven.compiler.plugin.version}</version>-->
-<!--                    <configuration>-->
-<!--                        <source>${java.version}</source>-->
-<!--                        <target>${java.version}</target>-->
-<!--                        <encoding>${project.build.sourceEncoding}</encoding>-->
-<!--                    </configuration>-->
-<!--                </plugin>-->
-<!--            </plugins>-->
-<!--        </pluginManagement>-->
-<!--        <plugins>-->
-<!--            &lt;!&ndash; resources资源插件 &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-resources-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <encoding>UTF-8</encoding>-->
-<!--                    &lt;!&ndash; 后缀为pem、pfx的证书文件 &ndash;&gt;-->
-<!--                    <nonFilteredFileExtensions>-->
-<!--                        <nonFilteredFileExtension>pem</nonFilteredFileExtension>-->
-<!--                        <nonFilteredFileExtension>pfx</nonFilteredFileExtension>-->
-<!--                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>-->
-<!--                        <nonFilteredFileExtension>key</nonFilteredFileExtension>-->
-<!--                    </nonFilteredFileExtensions>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--            &lt;!&ndash; java文档插件 &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.0.0</version>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

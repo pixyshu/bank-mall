@@ -18,6 +18,8 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/bmmp-common/bmmp-common-api/pom.xml" />
+        <option value="$PROJECT_DIR$/bmmp-common/bmmp-common-database/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-authority/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-example/pom.xml" />
         <option value="$PROJECT_DIR$/bmmp-domain-order/pom.xml" />
