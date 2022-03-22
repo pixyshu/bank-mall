@@ -5,6 +5,7 @@ import com.suue.bmmp.api.CommonPage;
 import com.suue.bmmp.api.CommonResult;
 import com.suue.bmmp.entity.UmsMenu;
 import com.suue.bmmp.service.UmsMenuService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.validation.Valid;
  * @author shuds
  * @since 2022-03-21 19:49:08
  */
+@Api(tags = "MenuController", description = "后台菜单管理")
 @RestController
 @RequestMapping("umsMenus")
 public class UmsMenuController {

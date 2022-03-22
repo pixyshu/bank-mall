@@ -5,6 +5,7 @@ import com.suue.bmmp.api.CommonPage;
 import com.suue.bmmp.api.CommonResult;
 import com.suue.bmmp.entity.UmsRole;
 import com.suue.bmmp.service.UmsRoleService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.validation.Valid;
  * @author shuds
  * @since 2022-03-21 19:51:28
  */
+@Api(tags = "UmsRoleController", description = "后台角色管理")
 @RestController
 @RequestMapping("umsRoles")
 public class UmsRoleController {

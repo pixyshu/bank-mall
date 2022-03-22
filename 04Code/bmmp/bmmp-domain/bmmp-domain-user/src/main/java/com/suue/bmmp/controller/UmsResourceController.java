@@ -5,6 +5,7 @@ import com.suue.bmmp.api.CommonPage;
 import com.suue.bmmp.api.CommonResult;
 import com.suue.bmmp.entity.UmsResource;
 import com.suue.bmmp.service.UmsResourceService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.validation.Valid;
  * @author shuds
  * @since 2022-03-21 19:50:58
  */
+@Api(tags = "ResourceController", description = "后台资源管理")
 @RestController
 @RequestMapping("umsResources")
 public class UmsResourceController {

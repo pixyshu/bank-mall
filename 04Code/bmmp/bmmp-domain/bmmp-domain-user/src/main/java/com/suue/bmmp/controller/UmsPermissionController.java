@@ -5,6 +5,7 @@ import com.suue.bmmp.api.CommonPage;
 import com.suue.bmmp.api.CommonResult;
 import com.suue.bmmp.entity.UmsPermission;
 import com.suue.bmmp.service.UmsPermissionService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.validation.Valid;
  * @author shuds
  * @since 2022-03-21 19:50:26
  */
+@Api(tags = "PermissionController", description = "后台权限管理")
 @RestController
 @RequestMapping("umsPermissions")
 public class UmsPermissionController {
