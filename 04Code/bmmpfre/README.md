@@ -53,9 +53,9 @@ src -- 源码目录
 
 ### 启动后台项目
 
-- 启动`AuthorityApplication`
-- 启动`GatewayApplication`
-- 启动`UserAdminApplication`
+- 启动`AuthorityApplication`：认证服务
+- 启动`GatewayApplication`：网关服务
+- 启动`UserAdminApplication`：用户登录注册管理服务
 
 ![image-20220322131307728](https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220322131309.png)
 
