@@ -47,19 +47,25 @@ src -- 源码目录
 ### 环境要求
 
 - 下载node12.x并安装：[https://nodejs.org/dist/v12.14.0/node-v12.14.0-x64.msi](https://nodejs.org/dist/v12.14.0/node-v12.14.0-x64.msi);
-- 启动本地redis，并配置在
+- 启动本地redis-server，不需要配密码
 
 <br>
 
 ### 启动后台项目
 
-- 启动`AuthorityApplication`：认证服务
-- 启动`GatewayApplication`：网关服务
-- 启动`UserAdminApplication`：用户登录注册管理服务
+- 切换项目环境
 
-![image-20220322131307728](https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220322131309.png)
+  ![image-20220322132737533](https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220322132738.png)
 
+- 启动后台服务
 
+  - 启动`AuthorityApplication`：认证服务
+  - 启动`GatewayApplication`：网关服务
+  - 启动`UserAdminApplication`：用户登录注册管理服务
+
+  ![image-20220322131307728](https://cdn.jsdelivr.net/gh/pixyshu/picgo@main/image/20220322131309.png)
+
+- 服务启动成功，可以在
 
 <br>
 
