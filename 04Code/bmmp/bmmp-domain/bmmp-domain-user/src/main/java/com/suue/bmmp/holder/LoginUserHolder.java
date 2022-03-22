@@ -1,8 +1,8 @@
-//package com.suue.bmmp.holder;
+//package com.suue.com.suue.bmmp.holder;
 //
 //import cn.hutool.core.convert.Convert;
 //import cn.hutool.json.JSONObject;
-//import com.suue.bmmp.domain.UserDTO;
+//import com.suue.com.suue.bmmp.domain.UserDTO;
 //import org.springframework.stereotype.Component;
 //import org.springframework.web.context.request.RequestContextHolder;
 //import org.springframework.web.context.request.ServletRequestAttributes;

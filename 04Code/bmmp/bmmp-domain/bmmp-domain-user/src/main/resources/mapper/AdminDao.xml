@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suue.bmmp.dao.AdminDao">
 
-    <resultMap type="com.suue.bmmp.entity.Admin" id="AdminMap">
+    <resultMap type="com.suue.bmmp.entity.UmsAdmin" id="AdminMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
@@ -184,7 +184,47 @@
         select
         id, username, password, icon, email, nick_name, note, create_time, login_time, status
         from ums_admin
+        <where>
+            <if test="keyword != null">
+                username like  "%"#{keyword}"%"
+                or nick_name like "%"#{keyword}"%"
+            </if>
+        </where>
     </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.suue.bmmp.entity.UmsAdmin">
+        update ums_admin
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 </mapper>
 

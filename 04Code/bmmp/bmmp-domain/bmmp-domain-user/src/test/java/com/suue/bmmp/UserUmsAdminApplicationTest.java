@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * Created by shuds on 2022/3/21
  **/
 @SpringBootTest
-public class UserAdminApplicationTest {
+public class UserUmsAdminApplicationTest {
 
     @Test
     void test_redis_service(){

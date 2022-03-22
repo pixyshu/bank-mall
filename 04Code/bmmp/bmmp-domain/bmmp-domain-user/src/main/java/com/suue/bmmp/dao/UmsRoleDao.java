@@ -1,5 +1,6 @@
 package com.suue.bmmp.dao;
 
+import com.suue.bmmp.entity.UmsMenu;
 import com.suue.bmmp.entity.UmsRole;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
@@ -78,5 +79,10 @@ public interface UmsRoleDao {
      * @return 对象列表
      */
     List<UmsRole> queryAll(UmsRole umsRole);
+
+    /**
+     * 根据后台用户ID获取菜单
+     */
+    List<UmsMenu> getMenuList(@Param("adminId") Long adminId);
 }
 

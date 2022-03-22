@@ -2,6 +2,7 @@ package com.suue.bmmp.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.suue.bmmp.entity.UmsMenu;
 import com.suue.bmmp.entity.UmsRole;
 import com.suue.bmmp.dao.UmsRoleDao;
 import com.suue.bmmp.service.UmsRoleService;
@@ -90,5 +91,10 @@ public class UmsRoleServiceImpl implements UmsRoleService {
         PageHelper.startPage(pageNum, pageSize);
         List<UmsRole> umsRoleList = umsRoleDao.queryAll(umsRole);
         return umsRoleList;
+    }
+
+    @Override
+    public List<UmsMenu> getMenuList(Long adminId) {
+        return umsRoleDao.getMenuList(adminId);
     }
 }

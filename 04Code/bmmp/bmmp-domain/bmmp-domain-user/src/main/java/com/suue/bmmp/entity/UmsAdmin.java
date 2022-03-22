@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Admin implements Serializable {
+public class UmsAdmin implements Serializable {
     private static final long serialVersionUID = -60424806035497618L;
     
     private Long id;

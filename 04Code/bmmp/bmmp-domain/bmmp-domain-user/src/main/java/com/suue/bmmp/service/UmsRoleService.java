@@ -1,6 +1,7 @@
 package com.suue.bmmp.service;
 
 import com.github.pagehelper.PageInfo;
+import com.suue.bmmp.entity.UmsMenu;
 import com.suue.bmmp.entity.UmsRole;
 import java.util.List;
 
@@ -60,4 +61,9 @@ public interface UmsRoleService {
      * @return
      */
     List<UmsRole> getAllForPage(UmsRole umsRole, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据管理员ID获取对应菜单
+     */
+    List<UmsMenu> getMenuList(Long adminId);
 }

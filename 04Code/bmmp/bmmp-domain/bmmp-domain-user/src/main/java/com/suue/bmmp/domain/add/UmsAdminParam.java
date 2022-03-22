@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
  **/
 @Getter
 @Setter
-public class AdminParam {
+public class UmsAdminParam {
     @ApiModelProperty(value = "用户名", required = true)
     @NotEmpty
     private String username;
