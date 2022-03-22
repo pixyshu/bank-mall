@@ -45,7 +45,6 @@ public class AdminController {
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<UmsAdmin> register(@Validated @RequestBody UmsAdminParam umsAdminParam) {
         UmsAdmin umsAdmin = umsAdminService.register(umsAdminParam);
         if (umsAdmin == null) {
@@ -62,7 +61,6 @@ public class AdminController {
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult getAdminInfo() {
         UmsAdmin umsAdmin = umsAdminService.getCurrentAdmin();
         Map<String, Object> data = new HashMap<>();
@@ -79,20 +77,15 @@ public class AdminController {
 
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult logout() {
         return CommonResult.success(null);
     }
 
-    /**
-     * 删除数据
-     *
-     * @param adminId 主键
-     * @return 删除是否成功
-     */
-    @DeleteMapping("/{adminId}")
-    public CommonResult<Boolean> delete(@PathVariable("adminId") Long adminId) {
-        boolean isDel = this.umsAdminService.deleteById(adminId);
+
+    @ApiOperation("删除指定用户信息")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public CommonResult delete(@PathVariable Long id) {
+        boolean isDel = this.umsAdminService.deleteById(id);
         if(isDel){
             return CommonResult.success(isDel);
         }
@@ -102,7 +95,6 @@ public class AdminController {
 
     @ApiOperation("根据用户名或姓名分页获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult<CommonPage<UmsAdmin>> list(@RequestParam(value = "keyword", required = false) String keyword,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
@@ -134,7 +126,6 @@ public class AdminController {
 
     @ApiOperation("修改帐号状态")
     @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult updateStatus(@PathVariable Long id,@RequestParam(value = "status") Integer status) {
         UmsAdmin umsAdmin = new UmsAdmin();
         umsAdmin.setStatus(status);
@@ -148,7 +139,6 @@ public class AdminController {
 
     @ApiOperation("给用户分配角色")
     @RequestMapping(value = "/role/update", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult updateRole(@RequestParam("adminId") Long adminId,
                                    @RequestParam("roleIds") List<Long> roleIds) {
         int count = umsAdminService.updateRole(adminId, roleIds);
@@ -161,7 +151,6 @@ public class AdminController {
 
     @ApiOperation("获取指定用户的角色")
     @RequestMapping(value = "/role/{adminId}", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult<List<UmsRole>> getRoleList(@PathVariable Long adminId) {
         List<UmsRole> roleList = umsAdminService.getRoleList(adminId);
         return CommonResult.success(roleList);

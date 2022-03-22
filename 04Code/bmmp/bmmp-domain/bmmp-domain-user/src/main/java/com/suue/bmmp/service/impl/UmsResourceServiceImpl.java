@@ -1,5 +1,6 @@
 package com.suue.bmmp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.suue.bmmp.constant.AuthConstant;
@@ -14,10 +15,8 @@ import com.suue.bmmp.service.UmsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -31,7 +30,7 @@ import javax.annotation.Resource;
 @Service("umsResourceService")
 public class UmsResourceServiceImpl implements UmsResourceService {
     @Resource
-    private UmsResourceDao umsResourceDao;
+    private UmsResourceDao resourceDao;
     @Autowired
     private UmsRoleDao roleMapper;
     @Autowired
@@ -40,81 +39,52 @@ public class UmsResourceServiceImpl implements UmsResourceService {
     private RedisService redisService;
     @Value("${spring.application.name}")
     private String applicationName;
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    @Override
-    public UmsResource queryById(Long id) {
-        return this.umsResourceDao.queryById(id);
-    }
 
 
-    /**
-     * 新增数据
-     *
-     * @param umsResource 实例对象
-     * @return 实例对象
-     */
     @Override
-    public UmsResource insert(UmsResource umsResource) {
-        this.umsResourceDao.insert(umsResource);
-        return umsResource;
+    public int create(UmsResource umsResource) {
+        umsResource.setCreateTime(new Date());
+        int count = resourceDao.insert(umsResource);
+        initResourceRolesMap();
+        return count;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param umsResource 实例对象
-     * @return 实例对象
-     */
     @Override
-    public UmsResource update(UmsResource umsResource) {
-        this.umsResourceDao.update(umsResource);
-        return this.queryById(umsResource.getId());
+    public int update(Long id, UmsResource umsResource) {
+        umsResource.setId(id);
+        int count = resourceDao.update(umsResource);
+        initResourceRolesMap();
+        return count;
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
     @Override
-    public boolean deleteById(Long id) {
-        return this.umsResourceDao.deleteById(id) > 0;
+    public UmsResource getItem(Long id) {
+        return resourceDao.queryById(id);
     }
-    
-    /**
-     * 条件查询
-     *
-     * @param umsResource 筛选条件
-     * @return 查询结果
-     */
+
     @Override
-    public List<UmsResource> queryAll(UmsResource umsResource) {
-        return this.umsResourceDao.queryAll(umsResource);
+    public int delete(Long id) {
+        int count = resourceDao.deleteById(id);
+        initResourceRolesMap();
+        return count;
     }
-  
-    /**
-     * 分页查询
-     * @param pageNum
-     * @param pageSize
-     * @return
-     */
+
     @Override
-    public List<UmsResource> getAllForPage(UmsResource umsResource,Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<UmsResource> umsResourceList = umsResourceDao.queryAll(umsResource);
-        return umsResourceList;
+    public List<UmsResource> list(Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum) {
+        PageHelper.startPage(pageNum,pageSize);
+        return resourceDao.selectAllByNameAndUrl(categoryId, nameKeyword, urlKeyword);
     }
+
+    @Override
+    public List<UmsResource> listAll() {
+        return resourceDao.queryAll(new UmsResource());
+    }
+
 
     @Override
     public Map<String,List<String>> initResourceRolesMap() {
         Map<String,List<String>> resourceRoleMap = new TreeMap<>();
-        List<UmsResource> resourceList = umsResourceDao.queryAll(new UmsResource());
+        List<UmsResource> resourceList = resourceDao.queryAll(new UmsResource());
         List<UmsRole> roleList = roleMapper.queryAll(new UmsRole());
         List<UmsRoleResourceRelation> relationList = roleResourceRelationMapper.queryAll(new UmsRoleResourceRelation());
 

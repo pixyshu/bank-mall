@@ -6,8 +6,11 @@ import com.suue.bmmp.api.CommonResult;
 import com.suue.bmmp.entity.UmsResource;
 import com.suue.bmmp.service.UmsResourceService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -20,82 +23,76 @@ import javax.validation.Valid;
  */
 @Api(tags = "ResourceController", description = "后台资源管理")
 @RestController
-@RequestMapping("umsResources")
+@RequestMapping("/resource")
 public class UmsResourceController {
-    /**
-     * 服务对象
-     */
-    @Resource
-    private UmsResourceService umsResourceService;
+    @Autowired
+    private UmsResourceService resourceService;
 
-    /**
-     * 新增数据
-     *
-     * @param umsResource 实体
-     * @return 新增结果
-     */
-    @PostMapping()
-    public CommonResult<UmsResource> create(@Valid @RequestBody UmsResource umsResource) {
-        return CommonResult.success(this.umsResourceService.insert(umsResource));
+    @ApiOperation("添加后台资源")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public CommonResult create(@RequestBody UmsResource umsResource) {
+        int count = resourceService.create(umsResource);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
-    /**
-     * 删除数据
-     *
-     * @param umsResourceId 主键
-     * @return 删除是否成功
-     */
-    @DeleteMapping("/{umsResourceId}")
-    public CommonResult<Boolean> delete(@PathVariable("umsResourceId") Long umsResourceId) {
-        return CommonResult.success(this.umsResourceService.deleteById(umsResourceId));
-    }
-    
-    /**
-     * 更新数据
-     *
-     * @param umsResource 实体
-     * @return 编辑结果
-     */
-    @PutMapping()
-    public CommonResult<UmsResource> update(@Valid @RequestBody UmsResource umsResource) {
-        return CommonResult.success(this.umsResourceService.update(umsResource));
+    @ApiOperation("修改后台资源")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public CommonResult update(@PathVariable Long id,
+                               @RequestBody UmsResource umsResource) {
+        int count = resourceService.update(id, umsResource);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param umsResourceId 主键
-     * @return 单条数据
-     */
-    @GetMapping("/{umsResourceId}")
-    public CommonResult<UmsResource> get(@PathVariable("umsResourceId") Long umsResourceId) {
-        return CommonResult.success(this.umsResourceService.queryById(umsResourceId));
+    @ApiOperation("根据ID获取资源详情")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<UmsResource> getItem(@PathVariable Long id) {
+        UmsResource umsResource = resourceService.getItem(id);
+        return CommonResult.success(umsResource);
     }
 
-    /**
-     * 条件查询
-     *
-     * @param umsResource 筛选条件
-     * @return 查询结果
-     */
-    @GetMapping()
-    public CommonResult<List<UmsResource>> getAll(UmsResource umsResource) {
-        return CommonResult.success(this.umsResourceService.queryAll(umsResource));
+    @ApiOperation("根据ID删除后台资源")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public CommonResult delete(@PathVariable Long id) {
+        int count = resourceService.delete(id);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
-    /**
-     * 条件分页查询
-     * @param umsResource 筛选条件
-     * @param pageNum 页数
-     * @param pageSize 页码
-     * @return 查询结果
-     */
-    @GetMapping("/{pageNum}/{pageSize}")
-    public CommonResult<CommonPage<UmsResource>> getAllForPage(UmsResource umsResource
-            , @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum
-            , @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        List<UmsResource> umsResourceList = this.umsResourceService.getAllForPage(umsResource, pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(umsResourceList));
+    @ApiOperation("分页模糊查询后台资源")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public CommonResult<CommonPage<UmsResource>> list(@RequestParam(required = false) Long categoryId,
+                                                      @RequestParam(required = false) String nameKeyword,
+                                                      @RequestParam(required = false) String urlKeyword,
+                                                      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        List<UmsResource> resourceList = resourceService.list(categoryId,nameKeyword, urlKeyword, pageSize, pageNum);
+        return CommonResult.success(CommonPage.restPage(resourceList));
+    }
+
+    @ApiOperation("查询所有后台资源")
+    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    public CommonResult<List<UmsResource>> listAll() {
+        List<UmsResource> resourceList = resourceService.listAll();
+        return CommonResult.success(resourceList);
+    }
+
+    @ApiOperation("初始化资源角色关联数据")
+    @RequestMapping(value = "/initResourceRolesMap", method = RequestMethod.GET)
+    public CommonResult initResourceRolesMap() {
+        Map<String, List<String>> resourceRolesMap = resourceService.initResourceRolesMap();
+        return CommonResult.success(resourceRolesMap);
     }
 }
 

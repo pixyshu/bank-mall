@@ -14,53 +14,34 @@ import java.util.Map;
 public interface UmsResourceService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
+     * 添加资源
      */
-    UmsResource queryById(Long id);
+    int create(UmsResource umsResource);
 
     /**
-     * 新增数据
-     *
-     * @param umsResource 实例对象
-     * @return 实例对象
+     * 修改资源
      */
-    UmsResource insert(UmsResource umsResource);
+    int update(Long id, UmsResource umsResource);
 
     /**
-     * 修改数据
-     *
-     * @param umsResource 实例对象
-     * @return 实例对象
+     * 获取资源详情
      */
-    UmsResource update(UmsResource umsResource);
+    UmsResource getItem(Long id);
 
     /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
+     * 删除资源
      */
-    boolean deleteById(Long id);
+    int delete(Long id);
 
     /**
-     * 条件查询
-     *
-     * @param umsResource 筛选条件
-     * @return 查询结果
+     * 分页查询资源
      */
-    List<UmsResource> queryAll(UmsResource umsResource);
-  
+    List<UmsResource> list(Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
 
-		/**
-     * 分页查询
-     * @param pageNum
-     * @param pageSize
-     * @return
+    /**
+     * 查询全部资源
      */
-    List<UmsResource> getAllForPage(UmsResource umsResource, Integer pageNum, Integer pageSize);
+    List<UmsResource> listAll();
 
     /**
      * 初始化资源角色规则

@@ -127,6 +127,22 @@
             </if>
         </where>
     </select>
+    <select id="selectAllByNameAndUrl" resultMap="UmsResourceMap">
+        select
+        id, category_id, create_time, name, url, description
+        from ums_resource
+        <where>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="nameKeyword != null">
+                and name like "%"#{nameKeyword}"%"
+            </if>
+            <if test="urlKeyword != null">
+                and url like "%"#{urlKeyword}"%"
+            </if>
+        </where>
+    </select>
 </mapper>
 
 
