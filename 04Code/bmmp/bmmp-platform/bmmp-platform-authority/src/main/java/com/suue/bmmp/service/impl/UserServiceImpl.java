@@ -1,9 +1,11 @@
-package com.suue.bmmp.service;
+package com.suue.bmmp.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.suue.bmmp.constant.AuthConstant;
 import com.suue.bmmp.constant.MessageConstant;
 import com.suue.bmmp.domain.SecurityUser;
-import com.suue.bmmp.domain.UserDTO;
+import com.suue.bmmp.domain.UserDto;
+import com.suue.bmmp.service.UmsAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,26 +29,30 @@ import java.util.stream.Collectors;
  **/
 @Service
 public class UserServiceImpl implements UserDetailsService {
-
-    private List<UserDTO> userList;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UmsAdminService adminService;
 
-    @PostConstruct
-    public void initData() {
-        String password = passwordEncoder.encode("123456");
-        userList = new ArrayList<>();
-        userList.add(new UserDTO(1L,"macro", password,1, CollUtil.toList("ADMIN")));
-        userList.add(new UserDTO(2L,"andy", password,1, CollUtil.toList("TEST")));
-    }
+//    @Autowired
+//    private UmsMemberService memberService;
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<UserDTO> findUserList = userList.stream().filter(item -> item.getUsername().equals(username)).collect(Collectors.toList());
-        if (CollUtil.isEmpty(findUserList)) {
+        String clientId = request.getParameter("client_id");
+        UserDto userDto = null;
+        if(AuthConstant.ADMIN_CLIENT_ID.equals(clientId)){
+            userDto = adminService.loadUserByUsername(username);
+        }
+//        else{
+////            userDto = memberService.loadUserByUsername(username);
+//        }
+        if (userDto==null) {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }
-        SecurityUser securityUser = new SecurityUser(findUserList.get(0));
+        userDto.setClientId(clientId);
+
+        SecurityUser securityUser = new SecurityUser(userDto);
         if (!securityUser.isEnabled()) {
             throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
         } else if (!securityUser.isAccountNonLocked()) {
@@ -57,4 +64,5 @@ public class UserServiceImpl implements UserDetailsService {
         }
         return securityUser;
     }
+
 }

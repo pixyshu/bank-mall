@@ -2,7 +2,7 @@ package com.suue.bmmp.config;
 
 
 import com.suue.bmmp.component.JwtTokenEnhancer;
-import com.suue.bmmp.service.UserServiceImpl;
+import com.suue.bmmp.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

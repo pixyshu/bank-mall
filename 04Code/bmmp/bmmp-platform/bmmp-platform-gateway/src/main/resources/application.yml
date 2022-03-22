@@ -11,17 +11,11 @@ spring:
         server-addr: @pom.nacos.ip@:@pom.nacos.port@
         namespace: @pom.nacos.namespace@
     gateway:
-      routes: #配置路由规则 domain-brand
-#        - id: domain-api
-#          uri: lb://domain-api
-#          predicates:
-#            - Path=/api/**
-#          filters:
-#            - StripPrefix=1
+      routes: #配置路由规则
         - id: domain-user-service
           uri: lb://domain-user-service
           predicates:
-            - Path=/api/**
+            - Path=/mall-admin/**
           filters:
             - StripPrefix=1
         - id: platform-authority-service
@@ -34,6 +28,7 @@ spring:
         locator:
           enabled: true #开启从注册中心动态创建路由的功能
           lower-case-service-id: true #使用小写服务名，默认是大写
+
   security:
     oauth2:
       resourceserver:
@@ -49,5 +44,7 @@ secure:
     urls: #配置白名单路径
       - "/actuator/**"
       - "/auth/oauth/**"
-      - "/api/sso/login"
+      - "/mall-admin/admin/login"
+      - "/mall-admin/admin/register"
+      - "/mall-admin/minio/upload"
 

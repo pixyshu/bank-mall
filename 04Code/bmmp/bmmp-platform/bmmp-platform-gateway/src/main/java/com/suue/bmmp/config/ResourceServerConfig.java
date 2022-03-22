@@ -35,9 +35,14 @@ public class ResourceServerConfig {
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
 
+    /**
+     *  Web Security过滤器链配置
+     * @param http ServerHttpSecurity
+     * @return SecurityWebFilterChain
+     */
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        //配置资源服务端的Token解析
+        //JWT处理
         http.oauth2ResourceServer().jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
 
@@ -47,18 +52,26 @@ public class ResourceServerConfig {
         //对白名单路径，直接移除JWT请求头
         http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
 
-        // 配置鉴权管理策略以及未授权和为认证的处理类
+        // 添加鉴权过滤器
         http.authorizeExchange()
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()//白名单配置
                 .anyExchange().access(authorizationManager)//鉴权管理器配置
-                .and().exceptionHandling()
+                .and()
+                .exceptionHandling()  //鉴权异常处理
                 .accessDeniedHandler(restfulAccessDeniedHandler)//处理未授权
                 .authenticationEntryPoint(restAuthenticationEntryPoint)//处理未认证
-                .and().csrf().disable();
-
+                .and()
+                .csrf().disable()
+                .cors();
         return http.build();
     }
 
+    /**
+     * ServerHttpSecurity没有将jwt中authorities的负载部分当做Authentication
+     * 需要把jwt的Claim中的authorities加入
+     * 重新定义ReactiveAuthenticationManager权限管理器，添加默认转换器JwtGrantedAuthoritiesConverter
+     * @return ReactiveJwtAuthenticationConverterAdapter
+     */
     @Bean
     public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();

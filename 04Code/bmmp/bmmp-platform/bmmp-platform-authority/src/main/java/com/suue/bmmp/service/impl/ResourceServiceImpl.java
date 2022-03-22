@@ -1,4 +1,4 @@
-package com.suue.bmmp.service;
+package com.suue.bmmp.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.suue.bmmp.constant.RedisConstant;
@@ -24,7 +24,7 @@ public class ResourceServiceImpl {
     @PostConstruct
     public void initData() {
         resourceRolesMap = new TreeMap<>();
-        resourceRolesMap.put("/api/hello", CollUtil.toList("ADMIN"));
+//        resourceRolesMap.put("/api/hello", CollUtil.toList("ADMIN"));
         resourceRolesMap.put("/api/sso/hello", CollUtil.toList("ADMIN"));
         resourceRolesMap.put("/api/sso/login", CollUtil.toList("ADMIN"));
         resourceRolesMap.put("/api/sso/getCurrentUserInfo", CollUtil.toList("ADMIN"));
