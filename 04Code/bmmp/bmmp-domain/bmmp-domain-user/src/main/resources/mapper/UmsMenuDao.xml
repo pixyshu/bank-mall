@@ -160,6 +160,14 @@
             </if>
         </where>
     </select>
+    <select id="selectByParentIdOrderBySortDesc" resultMap="UmsMenuMap">
+        select
+            id, parent_id, create_time, title, level, sort, name, icon, hidden
+        from ums_menu
+        where
+        parent_id = #{parentId,jdbcType=NUMERIC}
+        order by sort desc
+    </select>
 </mapper>
 
 

@@ -3,6 +3,7 @@ package com.suue.bmmp.service;
 import com.github.pagehelper.PageInfo;
 import com.suue.bmmp.entity.UmsResource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台资源表(UmsResource)表服务接口
@@ -60,4 +61,9 @@ public interface UmsResourceService {
      * @return
      */
     List<UmsResource> getAllForPage(UmsResource umsResource, Integer pageNum, Integer pageSize);
+
+    /**
+     * 初始化资源角色规则
+     */
+    Map<String,List<String>> initResourceRolesMap();
 }

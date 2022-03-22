@@ -161,6 +161,74 @@
         GROUP BY
             m.id
     </select>
+
+    <!--条件查询所有数据-->
+    <select id="selectByKeyword" resultMap="UmsRoleMap">
+        select
+        id, name, description, admin_count, create_time, status, sort
+        from ums_role
+        <where>
+            <if test="keyword != null">
+                and name like "%"#{keyword}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="getMenuListByRoleId" resultType="com.suue.bmmp.entity.UmsMenu">
+        SELECT
+            m.id id,
+            m.parent_id parentId,
+            m.create_time createTime,
+            m.title title,
+            m.level level,
+            m.sort sort,
+            m.name name,
+            m.icon icon,
+            m.hidden hidden
+        FROM
+            ums_role_menu_relation rmr
+                LEFT JOIN ums_menu m ON rmr.menu_id = m.id
+        WHERE
+            rmr.role_id = #{roleId}
+          AND m.id IS NOT NULL
+        GROUP BY
+            m.id
+    </select>
+
+    <select id="getResourceListByRoleId" resultType="com.suue.bmmp.entity.UmsResource">
+        SELECT
+            r.id id,
+            r.create_time createTime,
+            r.`name` `name`,
+            r.url url,
+            r.description description,
+            r.category_id categoryId
+        FROM
+            ums_role_resource_relation rrr
+                LEFT JOIN ums_resource r ON rrr.resource_id = r.id
+        WHERE
+            rrr.role_id = #{roleId}
+          AND r.id IS NOT NULL
+        GROUP BY
+            r.id
+    </select>
+
+    <delete id="deleteByIdList" >
+        delete from ums_role where id = #{id}
+
+        insert into ums_role(name, description, admin_count, create_time, status, sort)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.description}, #{entity.adminCount}, #{entity.createTime}, #{entity.status}, #{entity.sort})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        description = values(description),
+        admin_count = values(admin_count),
+        create_time = values(create_time),
+        status = values(status),
+        sort = values(sort)
+    </delete>
 </mapper>
 
 

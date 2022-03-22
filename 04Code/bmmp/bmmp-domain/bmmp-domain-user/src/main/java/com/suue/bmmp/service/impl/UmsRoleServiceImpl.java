@@ -2,11 +2,17 @@ package com.suue.bmmp.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.suue.bmmp.entity.UmsMenu;
-import com.suue.bmmp.entity.UmsRole;
+import com.suue.bmmp.dao.UmsRoleMenuRelationDao;
+import com.suue.bmmp.dao.UmsRoleResourceRelationDao;
+import com.suue.bmmp.entity.*;
 import com.suue.bmmp.dao.UmsRoleDao;
+import com.suue.bmmp.service.UmsResourceService;
 import com.suue.bmmp.service.UmsRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,82 +25,93 @@ import javax.annotation.Resource;
  */
 @Service("umsRoleService")
 public class UmsRoleServiceImpl implements UmsRoleService {
-    @Resource
+    @Autowired
     private UmsRoleDao umsRoleDao;
-
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
+    @Autowired
+    private UmsRoleMenuRelationDao roleMenuRelationMapper;
+    @Autowired
+    private UmsRoleResourceRelationDao roleResourceRelationMapper;
+    @Autowired
+    private UmsRoleDao roleDao;
+    @Autowired
+    private UmsResourceService resourceService;
     @Override
-    public UmsRole queryById(Long id) {
-        return this.umsRoleDao.queryById(id);
+    public int create(UmsRole role) {
+        role.setCreateTime(new Date());
+        role.setAdminCount(0);
+        role.setSort(0);
+        return umsRoleDao.insert(role);
     }
 
-
-    /**
-     * 新增数据
-     *
-     * @param umsRole 实例对象
-     * @return 实例对象
-     */
     @Override
-    public UmsRole insert(UmsRole umsRole) {
-        this.umsRoleDao.insert(umsRole);
-        return umsRole;
+    public int update(Long id, UmsRole role) {
+        role.setId(id);
+        return umsRoleDao.update(role);
     }
 
-    /**
-     * 修改数据
-     *
-     * @param umsRole 实例对象
-     * @return 实例对象
-     */
     @Override
-    public UmsRole update(UmsRole umsRole) {
-        this.umsRoleDao.update(umsRole);
-        return this.queryById(umsRole.getId());
+    public int delete(List<Long> ids) {
+        int count = 0;
+        for (Long id : ids) {
+            roleDao.deleteById(id);
+            count++;
+        }
+        resourceService.initResourceRolesMap();
+        return count;
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
     @Override
-    public boolean deleteById(Long id) {
-        return this.umsRoleDao.deleteById(id) > 0;
+    public List<UmsRole> list() {
+        return umsRoleDao.queryAll(new UmsRole());
     }
-    
-    /**
-     * 条件查询
-     *
-     * @param umsRole 筛选条件
-     * @return 查询结果
-     */
+
     @Override
-    public List<UmsRole> queryAll(UmsRole umsRole) {
-        return this.umsRoleDao.queryAll(umsRole);
-    }
-  
-    /**
-     * 分页查询
-     * @param pageNum
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public List<UmsRole> getAllForPage(UmsRole umsRole,Integer pageNum, Integer pageSize) {
+    public List<UmsRole> list(String keyword, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
-        List<UmsRole> umsRoleList = umsRoleDao.queryAll(umsRole);
-        return umsRoleList;
+        return umsRoleDao.selectByKeyword(keyword);
     }
 
     @Override
     public List<UmsMenu> getMenuList(Long adminId) {
-        return umsRoleDao.getMenuList(adminId);
+        return roleDao.getMenuList(adminId);
+    }
+
+    @Override
+    public List<UmsMenu> listMenu(Long roleId) {
+        return roleDao.getMenuListByRoleId(roleId);
+    }
+
+    @Override
+    public List<UmsResource> listResource(Long roleId) {
+        return roleDao.getResourceListByRoleId(roleId);
+    }
+
+    @Override
+    public int allocMenu(Long roleId, List<Long> menuIds) {
+        //先删除原有关系
+        roleMenuRelationMapper.delByRoleId(roleId);
+        //批量插入新关系
+        for (Long menuId : menuIds) {
+            UmsRoleMenuRelation relation = new UmsRoleMenuRelation();
+            relation.setRoleId(roleId);
+            relation.setMenuId(menuId);
+            roleMenuRelationMapper.insert(relation);
+        }
+        return menuIds.size();
+    }
+
+    @Override
+    public int allocResource(Long roleId, List<Long> resourceIds) {
+        //先删除原有关系
+        roleResourceRelationMapper.delByRoleId(roleId);
+        //批量插入新关系
+        for (Long resourceId : resourceIds) {
+            UmsRoleResourceRelation relation = new UmsRoleResourceRelation();
+            relation.setRoleId(roleId);
+            relation.setResourceId(resourceId);
+            roleResourceRelationMapper.insert(relation);
+        }
+        resourceService.initResourceRolesMap();
+        return resourceIds.size();
     }
 }

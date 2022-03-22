@@ -1,4 +1,4 @@
-package com.suue.bmmp.domain.add;
+package com.suue.bmmp.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

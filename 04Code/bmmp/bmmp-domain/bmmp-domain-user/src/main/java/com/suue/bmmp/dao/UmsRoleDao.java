@@ -1,6 +1,7 @@
 package com.suue.bmmp.dao;
 
 import com.suue.bmmp.entity.UmsMenu;
+import com.suue.bmmp.entity.UmsResource;
 import com.suue.bmmp.entity.UmsRole;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
@@ -84,5 +85,18 @@ public interface UmsRoleDao {
      * 根据后台用户ID获取菜单
      */
     List<UmsMenu> getMenuList(@Param("adminId") Long adminId);
+
+    List<UmsRole> selectByKeyword(@Param("keyword") String keyword);
+
+    /**
+     * 根据角色ID获取菜单
+     */
+    List<UmsMenu> getMenuListByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 根据角色ID获取资源
+     */
+    List<UmsResource> getResourceListByRoleId(@Param("roleId") Long roleId);
+
 }
 

@@ -2,8 +2,8 @@ package com.suue.bmmp.service;
 
 import com.github.pagehelper.PageInfo;
 import com.suue.bmmp.api.CommonResult;
-import com.suue.bmmp.domain.UserDto;
-import com.suue.bmmp.domain.add.UmsAdminParam;
+import com.suue.bmmp.dto.UserDto;
+import com.suue.bmmp.dto.UmsAdminParam;
 import com.suue.bmmp.entity.UmsAdmin;
 import com.suue.bmmp.entity.UmsRole;
 import org.springframework.transaction.annotation.Transactional;

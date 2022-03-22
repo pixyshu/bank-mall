@@ -2,11 +2,23 @@ package com.suue.bmmp.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.suue.bmmp.constant.AuthConstant;
+import com.suue.bmmp.dao.UmsRoleDao;
+import com.suue.bmmp.dao.UmsRoleResourceRelationDao;
 import com.suue.bmmp.entity.UmsResource;
 import com.suue.bmmp.dao.UmsResourceDao;
+import com.suue.bmmp.entity.UmsRole;
+import com.suue.bmmp.entity.UmsRoleResourceRelation;
+import com.suue.bmmp.service.RedisService;
 import com.suue.bmmp.service.UmsResourceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -20,7 +32,14 @@ import javax.annotation.Resource;
 public class UmsResourceServiceImpl implements UmsResourceService {
     @Resource
     private UmsResourceDao umsResourceDao;
-
+    @Autowired
+    private UmsRoleDao roleMapper;
+    @Autowired
+    private UmsRoleResourceRelationDao roleResourceRelationMapper;
+    @Autowired
+    private RedisService redisService;
+    @Value("${spring.application.name}")
+    private String applicationName;
     /**
      * 通过ID查询单条数据
      *
@@ -90,5 +109,32 @@ public class UmsResourceServiceImpl implements UmsResourceService {
         PageHelper.startPage(pageNum, pageSize);
         List<UmsResource> umsResourceList = umsResourceDao.queryAll(umsResource);
         return umsResourceList;
+    }
+
+    @Override
+    public Map<String,List<String>> initResourceRolesMap() {
+        Map<String,List<String>> resourceRoleMap = new TreeMap<>();
+        List<UmsResource> resourceList = umsResourceDao.queryAll(new UmsResource());
+        List<UmsRole> roleList = roleMapper.queryAll(new UmsRole());
+        List<UmsRoleResourceRelation> relationList = roleResourceRelationMapper.queryAll(new UmsRoleResourceRelation());
+
+        for (UmsResource resource : resourceList) {
+            Set<Long> roleIds = relationList.stream()
+                    .filter(item -> item.getResourceId()
+                            .equals(resource.getId()))
+                    .map(UmsRoleResourceRelation::getRoleId)
+                    .collect(Collectors.toSet());
+
+            List<String> roleNames = roleList.stream()
+                    .filter(item -> roleIds.contains(item.getId()))
+                    .map(item -> item.getId() + "_" + item.getName())
+                    .collect(Collectors.toList());
+            resourceRoleMap.put("/"+applicationName+resource.getUrl(),roleNames);
+        }
+
+        redisService.del(AuthConstant.RESOURCE_ROLES_MAP_KEY);
+        redisService.hSetAll(AuthConstant.RESOURCE_ROLES_MAP_KEY, resourceRoleMap);
+        return resourceRoleMap;
+
     }
 }

@@ -3,9 +3,11 @@ package com.suue.bmmp.controller;
 import com.github.pagehelper.PageInfo;
 import com.suue.bmmp.api.CommonPage;
 import com.suue.bmmp.api.CommonResult;
+import com.suue.bmmp.dto.UmsMenuNode;
 import com.suue.bmmp.entity.UmsMenu;
 import com.suue.bmmp.service.UmsMenuService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -20,83 +22,91 @@ import javax.validation.Valid;
  */
 @Api(tags = "MenuController", description = "后台菜单管理")
 @RestController
-@RequestMapping("umsMenus")
+@RequestMapping("/menu")
 public class UmsMenuController {
     /**
      * 服务对象
      */
     @Resource
-    private UmsMenuService umsMenuService;
+    private UmsMenuService menuService;
 
-    /**
-     * 新增数据
-     *
-     * @param umsMenu 实体
-     * @return 新增结果
-     */
-    @PostMapping()
-    public CommonResult<UmsMenu> create(@Valid @RequestBody UmsMenu umsMenu) {
-        return CommonResult.success(this.umsMenuService.insert(umsMenu));
-    }
 
-    /**
-     * 删除数据
-     *
-     * @param umsMenuId 主键
-     * @return 删除是否成功
-     */
-    @DeleteMapping("/{umsMenuId}")
-    public CommonResult<Boolean> delete(@PathVariable("umsMenuId") Long umsMenuId) {
-        return CommonResult.success(this.umsMenuService.deleteById(umsMenuId));
-    }
-    
-    /**
-     * 更新数据
-     *
-     * @param umsMenu 实体
-     * @return 编辑结果
-     */
-    @PutMapping()
-    public CommonResult<UmsMenu> update(@Valid @RequestBody UmsMenu umsMenu) {
-        return CommonResult.success(this.umsMenuService.update(umsMenu));
+    @ApiOperation("添加后台菜单")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult create(@RequestBody UmsMenu umsMenu) {
+        int count = menuService.create(umsMenu);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param umsMenuId 主键
-     * @return 单条数据
-     */
-    @GetMapping("/{umsMenuId}")
-    public CommonResult<UmsMenu> get(@PathVariable("umsMenuId") Long umsMenuId) {
-        return CommonResult.success(this.umsMenuService.queryById(umsMenuId));
+    @ApiOperation("修改后台菜单")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult update(@PathVariable Long id,
+                               @RequestBody UmsMenu umsMenu) {
+        int count = menuService.update(id, umsMenu);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
-    /**
-     * 条件查询
-     *
-     * @param umsMenu 筛选条件
-     * @return 查询结果
-     */
-    @GetMapping()
-    public CommonResult<List<UmsMenu>> getAll(UmsMenu umsMenu) {
-        return CommonResult.success(this.umsMenuService.queryAll(umsMenu));
+    @ApiOperation("根据ID获取菜单详情")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<UmsMenu> getItem(@PathVariable Long id) {
+        UmsMenu umsMenu = menuService.getItem(id);
+        return CommonResult.success(umsMenu);
     }
 
-    /**
-     * 条件分页查询
-     * @param umsMenu 筛选条件
-     * @param pageNum 页数
-     * @param pageSize 页码
-     * @return 查询结果
-     */
-    @GetMapping("/{pageNum}/{pageSize}")
-    public CommonResult<CommonPage<UmsMenu>> getAllForPage(UmsMenu umsMenu
-            , @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum
-            , @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        List<UmsMenu> umsMenuList = this.umsMenuService.getAllForPage(umsMenu, pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(umsMenuList));
+    @ApiOperation("根据ID删除后台菜单")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult delete(@PathVariable Long id) {
+        int count = menuService.delete(id);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
+
+    @ApiOperation("分页查询后台菜单")
+    @RequestMapping(value = "/list/{parentId}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<UmsMenu>> list(@PathVariable Long parentId,
+                                                  @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        List<UmsMenu> menuList = menuService.list(parentId, pageSize, pageNum);
+        return CommonResult.success(CommonPage.restPage(menuList));
+    }
+
+    @ApiOperation("树形结构返回所有菜单列表")
+    @RequestMapping(value = "/treeList", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<UmsMenuNode>> treeList() {
+        List<UmsMenuNode> list = menuService.treeList();
+        return CommonResult.success(list);
+    }
+
+    @ApiOperation("修改菜单显示状态")
+    @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateHidden(@PathVariable Long id, @RequestParam("hidden") Integer hidden) {
+        int count = menuService.updateHidden(id, hidden);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
+
 }
 
 

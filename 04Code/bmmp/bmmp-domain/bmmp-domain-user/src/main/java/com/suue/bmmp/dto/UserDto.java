@@ -1,4 +1,4 @@
-package com.suue.bmmp.domain;
+package com.suue.bmmp.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

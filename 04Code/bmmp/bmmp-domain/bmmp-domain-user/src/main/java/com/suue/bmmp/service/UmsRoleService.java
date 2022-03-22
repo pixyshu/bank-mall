@@ -2,7 +2,10 @@ package com.suue.bmmp.service;
 
 import com.github.pagehelper.PageInfo;
 import com.suue.bmmp.entity.UmsMenu;
+import com.suue.bmmp.entity.UmsResource;
 import com.suue.bmmp.entity.UmsRole;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -14,56 +17,54 @@ import java.util.List;
 public interface UmsRoleService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
+     * 添加角色
      */
-    UmsRole queryById(Long id);
+    int create(UmsRole role);
 
     /**
-     * 新增数据
-     *
-     * @param umsRole 实例对象
-     * @return 实例对象
+     * 修改角色信息
      */
-    UmsRole insert(UmsRole umsRole);
+    int update(Long id, UmsRole role);
 
     /**
-     * 修改数据
-     *
-     * @param umsRole 实例对象
-     * @return 实例对象
+     * 批量删除角色
      */
-    UmsRole update(UmsRole umsRole);
+    int delete(List<Long> ids);
 
     /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
+     * 获取所有角色列表
      */
-    boolean deleteById(Long id);
+    List<UmsRole> list();
 
     /**
-     * 条件查询
-     *
-     * @param umsRole 筛选条件
-     * @return 查询结果
+     * 分页获取角色列表
      */
-    List<UmsRole> queryAll(UmsRole umsRole);
-  
-
-		/**
-     * 分页查询
-     * @param pageNum
-     * @param pageSize
-     * @return
-     */
-    List<UmsRole> getAllForPage(UmsRole umsRole, Integer pageNum, Integer pageSize);
+    List<UmsRole> list(String keyword, Integer pageSize, Integer pageNum);
 
     /**
      * 根据管理员ID获取对应菜单
      */
     List<UmsMenu> getMenuList(Long adminId);
+
+    /**
+     * 获取角色相关菜单
+     */
+    List<UmsMenu> listMenu(Long roleId);
+
+    /**
+     * 获取角色相关资源
+     */
+    List<UmsResource> listResource(Long roleId);
+
+    /**
+     * 给角色分配菜单
+     */
+    @Transactional
+    int allocMenu(Long roleId, List<Long> menuIds);
+
+    /**
+     * 给角色分配资源
+     */
+    @Transactional
+    int allocResource(Long roleId, List<Long> resourceIds);
 }
